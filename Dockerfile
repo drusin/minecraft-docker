@@ -9,7 +9,7 @@ ARG DEFAULT_ARGS="-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=
 ENV TYPE=paper
 ENV VERSION=1.16.3
 ENV MEMORY=4096
-ENV ARGS=-${DEFAULT_ARGS}
+ENV ARGS=${DEFAULT_ARGS}
 ENV ADDITIONAL_ARGS=""
 
 RUN apk add curl bash
@@ -21,7 +21,7 @@ EXPOSE 25565
 
 VOLUME /data
 
-COPY *.sh (!publish.sh) ./
+COPY *.sh ./
 RUN chmod +x *.sh
 
 ENTRYPOINT "./script.sh"

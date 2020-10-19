@@ -13,7 +13,7 @@ publish()
     VM=$1
     ARGS=$2
     TAG=$3
-    docker build --build-arg IMAGE=$VM --build-arg DEFAULT_ARGS=\"$ARGS\" -t $NAME:$TAG
+    docker build --build-arg IMAGE=$VM --build-arg DEFAULT_ARGS="$ARGS" -t $NAME:$TAG .
     docker push $NAME:$TAG
 }
 
