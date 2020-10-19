@@ -11,7 +11,7 @@ TYPE | paper | Which server jar to use. Currently supported: paper, fabric (comi
 VERSION | 1.16.3 | Which Minecraft version to use
 MEMORY | 4096 | How much RAM to allocate for the server (in MB)
 ARGS | Optimal command line args (see Description) | Which arguments to pass to the Java process. Depending on the container it uses them from https://mcflags.emc.gs or https://steinborn.me/posts/tuning-minecraft-openj9/
-ADDITIONAL_ARGS | | Additional arguments if you don't want to overrwrite the whole ARGS
+ADDITIONAL_ARGS | | Additional arguments if you don't want to overwrite the whole ARGS
 
 ## Tags
 Name | Description
