@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# calculate gencon nursery for openJ9 VM if needed
+ARGS=${ARGS/XMNS/$((MEMORY / 2))}
+ARGS=${ARGS/XMNX/$((MEMORY * 4 / 5))}
+
 # make sure the important dirs exist and make softlinks to the workdir to avoid copying of huge files
 mkdir /data/world -p
 ln -s /data/world world
@@ -26,7 +30,7 @@ fabric)
     ;;
 esac
 
-java -Xms${MEMORY} -Xmx${MEMORY} ${ARGS} ${ADDITIONAL_ARGS} -jar runme.jar nogui
+java -Xms${MEMORY}M -Xmx${MEMORY}M ${ARGS} ${ADDITIONAL_ARGS} -jar runme.jar nogui
 
 # copy all settings data that might have been touched back
 cp *.properties /data/
