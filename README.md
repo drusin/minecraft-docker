@@ -1,4 +1,4 @@
-# minecraft-docker
+# dawidr/minecraft-docker
 A simple docker container that automatically downloads and starts a minecraft server.
 
 ## Usage
