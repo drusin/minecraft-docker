@@ -11,6 +11,7 @@ ENV VERSION=1.16.3
 ENV MEMORY=4096
 ENV ARGS=${DEFAULT_ARGS}
 ENV ADDITIONAL_ARGS=""
+ENV WORLDS="world,world_nether,world_the_end"
 
 RUN apk add curl bash
 RUN mkdir /data

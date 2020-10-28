@@ -7,11 +7,12 @@ Mount a read/write volume to `/data`, to persist worlds and server settings. If 
 ## Environment
 Name | Default value | Description
 --- | --- | ---
-TYPE | paper | Which server jar to use. Currently supported: paper, fabric (coming soon: waterfall)
+TYPE | paper | Which server jar to use. Currently supported: paper, fabric, waterfall
 VERSION | 1.16.3 | Which Minecraft version to use
 MEMORY | 4096 | How much RAM to allocate for the server (in MB)
 ARGS | Optimal command line args (see Description) | Which arguments to pass to the Java process. Depending on the container it uses them from https://mcflags.emc.gs or https://steinborn.me/posts/tuning-minecraft-openj9/
 ADDITIONAL_ARGS | | Additional arguments if you don't want to overwrite the whole ARGS
+WORLDS | world,world_nether,world_the_end | Which world directories to use (ignored for when using waterfall)
 
 ## Tags
 Name | Description

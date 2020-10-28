@@ -14,12 +14,15 @@ cp /data/* ./
 mkdir /data/logs -p
 ln -sfn /data/logs logs
 if [ ${TYPE} != 'waterfall' ]; then
-    mkdir /data/world -p
-    ln -sfn /data/world world
-    mkdir /data/world_nether -p
-    ln -sfn /data/world_nether world_nether
-    mkdir /data/world_the_end -p
-    ln -sfn /data/world_the_end world_the_end
+    # split WORLDS string into array
+    IFS=',' read -r -a world_array <<< ${WORLDS}
+    
+    # bind worlds
+    for world in ${world_array[@]}
+    do
+        mkdir /data/$world -p
+        ln -sfn /data/$world $world
+    done
 fi
 
 # download server jar and do specific setup
