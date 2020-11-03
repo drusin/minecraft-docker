@@ -13,6 +13,7 @@ MEMORY | 4096 | How much RAM to allocate for the server (in MB)
 ARGS | Optimal command line args (see Description) | Which arguments to pass to the Java process. Depending on the container it uses them from https://mcflags.emc.gs or https://steinborn.me/posts/tuning-minecraft-openj9/
 ADDITIONAL_ARGS | | Additional arguments if you don't want to overwrite the whole ARGS
 WORLDS | world,world_nether,world_the_end | Which world directories to use (ignored for when using waterfall)
+AUTO_UPDATE_VIAVERSION | false | If set to "true", the latest version of ViaVersion will be downloaded and put into the plugins or mods folder
 
 ## Tags
 Name | Description
