@@ -1,5 +1,13 @@
 #!/bin/bash
 
+push="false"
+
+while getopts 'p' flag; do
+    case ${flag} in
+        p) push="true"
+    esac
+done
+
 NAME="dawidr/minecraft-docker"
 
 HOTSPOT_VMS=(adoptopenjdk/openjdk11:jre-11.0.8_10-alpine adoptopenjdk/openjdk15:jre-15_36-alpine)
@@ -14,7 +22,9 @@ publish()
     ARGS=$2
     TAG=$3
     docker build --build-arg IMAGE=$VM --build-arg DEFAULT_ARGS="$ARGS" -t $NAME:$TAG .
-    docker push $NAME:$TAG
+    if [ ${push} == "true" ]; then
+        docker push $NAME:$TAG
+    fi
 }
 
 publish ${HOTSPOT_VMS[0]} "$HOTSPOT_ARGS" "11hotspot"

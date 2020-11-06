@@ -40,7 +40,7 @@ esac
 
 java -Xms${MEMORY}M -Xmx${MEMORY}M ${ARGS} ${ADDITIONAL_ARGS} -jar runme.jar nogui
 
-# copy all settings data that might have been touched back
-cp *.properties /data/
-cp *.json /data/
-cp *.yml /data/
+# copy all settings data that were touched back
+cp *.properties /data/ -u
+cp *.json /data/ -u
+cp *.yml /data/ -u
