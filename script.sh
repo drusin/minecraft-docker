@@ -25,20 +25,23 @@ if [ ${TYPE} != 'waterfall' ]; then
     done
 fi
 
+if [ ${FORCE_DOWNLOAD} == "true" ]; then
+    rm ${JAR_NAME};
+fi
 # download server jar and do specific setup
 case ${TYPE} in
-paper)
-    ./paper.sh
-    ;;
-fabric)
-    ./fabric.sh
-    ;;
-waterfall)
-    ./waterfall.sh
-    ;;
+    paper)
+        ./paper.sh
+        ;;
+    fabric)
+        ./fabric.sh
+        ;;
+    waterfall)
+        ./waterfall.sh
+        ;;
 esac
 
-java -Xms${MEMORY}M -Xmx${MEMORY}M ${ARGS} ${ADDITIONAL_ARGS} -jar runme.jar nogui
+java -Xms${MEMORY}M -Xmx${MEMORY}M ${ARGS} ${ADDITIONAL_ARGS} -jar ${JAR_NAME} nogui
 
 # copy all settings data that were touched back
 cp *.properties /data/ -u
