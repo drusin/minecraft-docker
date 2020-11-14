@@ -1,8 +1,16 @@
 # dawidr/minecraft-docker
 A simple docker container that automatically downloads and starts a minecraft server.
 
+## Available images
+Name | Description
+--- | ---
+dawidr/minecraft-docker_11hotspot | OpenJDK 11 with HotSpot VM
+dawidr/minecraft-docker_15hotspot | OpenJDK 15 with HotSpot VM
+dawidr/minecraft-docker_11openj9 | OpenJDK 11 with Openj9 VM
+dawidr/minecraft-docker_15openj9 | OpenJDK 15 with Openj9 VM
+
 ## Usage
-Mount a read/write volume to `/data`, to persist worlds and server settings. If the volume already contains worlds, config files or plugins/mods the server will use those and they will be updated during runtime. It is not possible to change server config using environment variables, please use the regular server config files in the volume.
+Forward the port 25565 and mount a read/write volume to `/data`, to persist worlds and server settings. If the volume already contains worlds, config files or plugins/mods the server will use those and they will be updated during runtime. It is not possible to change server config using environment variables, please use the regular server config files in the volume.
 
 ## Environment
 Name | Default value | Description
@@ -19,16 +27,8 @@ AUTO_PAUSE | false | If set to "true", the minecraft server process will be paus
 BEFORE_FIRST_PAUSE | 5 | Time in minutes until the first "AUTO_PAUSE" check is done. See below for more info
 
 ## Auto pause functionality
-By setting `AUTO_PAUSE` to `"true"`, every 5 min it will be checked if anyone is connected to the server. If noone is, the server process will be stopped and will not consume any processor resources anymore. As soon as someone tries to connect, the server process will be continued - this should work seemlessly, without the players even noticing. This functionality is based on (this comment on the official Mojang bug tracker)[https://bugs.mojang.com/browse/MC-149018?focusedCommentId=593606&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-593606].  
-*Important:* By default the minecraft server is set to crash if no ticks are happening for 60s. If you want to use auto pause you need to disable this functionality by setting `max-tick-time=-1` in `server.properties` and `timeout-time: -1` in `spigot.yaml` (if appliacable). Also the server has a grace period before the first check for online players to make sure it is fully started. You can change the amount of time with the `BEFORE_FIRST_PAUSE` environment variable.
-
-## Tags
-Name | Description
---- | ---
-11hotspot | OpenJDK 11 with HotSpot VM
-15hotspot | OpenJDK 15 with HotSpot VM
-11openj9 | OpenJDK 11 with Openj9 VM
-15openj9 | OpenJDK 15 with Openj9 VM
+By setting `AUTO_PAUSE` to `"true"`, every 5 min it will be checked if anyone is connected to the server. If noone is, the server process will be stopped and will not consume any processor resources anymore. As soon as someone tries to connect, the server process will be continued - this should work seamlessly, without the players even noticing. This functionality is based on [this comment on the official Mojang bug tracker](https://bugs.mojang.com/browse/MC-149018?focusedCommentId=593606&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-593606).  
+**Important:** By default the minecraft server is set to crash if no ticks are happening for 60s. If you want to use auto pause you need to disable this functionality by setting `max-tick-time=-1` in `server.properties` and `timeout-time: -1` in `spigot.yaml` (if appliacable). Also there is a grace period before the first check for online players to make sure the server is fully started. You can change the amount of time with the `BEFORE_FIRST_PAUSE` environment variable.
 
 ## Example docker-compose
 ```yaml

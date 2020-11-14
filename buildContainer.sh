@@ -8,6 +8,10 @@ while getopts 'p' flag; do
     esac
 done
 
+TAG_FILE="tag"
+
+read -r tag<$TAG_FILE
+
 NAME="dawidr/minecraft-docker"
 
 HOTSPOT_VMS=(adoptopenjdk/openjdk11:jre-11.0.8_10-alpine adoptopenjdk/openjdk15:jre-15_36-alpine)
@@ -16,19 +20,28 @@ HOTSPOT_ARGS="-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 
 J9_VMS=(adoptopenjdk/openjdk11-openj9:jre-11.0.8_10_openj9-0.21.0-alpine adoptopenjdk/openjdk15-openj9:jre-15_36_openj9-0.22.0-alpine)
 J9_ARGS="-XmnsXMNSM -XmnxXMNXM -Xgc:concurrentScavenge -Xgc:dnssExpectedTimeRatioMaximum=3 -Xgc:scvNoAdaptiveTenure -Xdisableexplicitgc"
 
-publish()
+build()
 {
     VM=$1
     ARGS=$2
-    TAG=$3
-    docker build --build-arg IMAGE=$VM --build-arg DEFAULT_ARGS="$ARGS" -t $NAME:$TAG .
+    VERSION=$3
+    docker build --build-arg IMAGE=$VM --build-arg DEFAULT_ARGS="$ARGS" -t $NAME-$VERSION:$tag -t $NAME_$VERSION:latest .
     if [ ${push} == "true" ]; then
-        docker push $NAME:$TAG
+        docker push $NAME_$VERSION:$tag
+        docker push $NAME_$VERSION:$latest
     fi
 }
 
-publish ${HOTSPOT_VMS[0]} "$HOTSPOT_ARGS" "11hotspot"
-publish ${HOTSPOT_VMS[1]} "$HOTSPOT_ARGS" "15hotspot"
+build ${HOTSPOT_VMS[0]} "$HOTSPOT_ARGS" "11hotspot"
+build ${HOTSPOT_VMS[1]} "$HOTSPOT_ARGS" "15hotspot"
 
-publish ${J9_VMS[0]} "$J9_ARGS" "11openj9"
-publish ${J9_VMS[1]} "$J9_ARGS" "15openj9"
+build ${J9_VMS[0]} "$J9_ARGS" "11openj9"
+build ${J9_VMS[1]} "$J9_ARGS" "15openj9"
+
+if [ ${push} == "true" ]; then
+    git tag $tag
+    echo "$(($tag + 1))" > $TAG_FILE
+    git add .
+    git commit -m "increasing tag number"
+    git push
+fi
