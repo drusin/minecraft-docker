@@ -16,7 +16,7 @@ ENV FORCE_DOWNLOAD="true"
 ENV AUTO_UPDATE_VIAVERSION="false"
 ENV JAR_NAME="runme.jar"
 
-RUN apk add curl bash
+RUN apk add --no-cache bash
 RUN mkdir /data
 
 WORKDIR /home/minecraft/

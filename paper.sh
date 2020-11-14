@@ -8,5 +8,5 @@ if [ ${AUTO_UPDATE_VIAVERSION} == 'true' ]; then
 fi
 
 if [ ! -f ${JAR_NAME} ]; then
-    curl https://papermc.io/api/v1/paper/${VERSION}/latest/download --output ${JAR_NAME}
+    wget https://papermc.io/api/v1/paper/${VERSION}/latest/download -O ${JAR_NAME}
 fi

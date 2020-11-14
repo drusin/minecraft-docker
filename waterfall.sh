@@ -12,5 +12,5 @@ if [ ${AUTO_UPDATE_VIAVERSION} == 'true' ]; then
 fi
 
 if [ ! -f ${JAR_NAME} ]; then
-    curl https://papermc.io/api/v1/waterfall/${versionArr[0]}.${versionArr[1]}/latest/download --output ${JAR_NAME}
+    wget https://papermc.io/api/v1/waterfall/${versionArr[0]}.${versionArr[1]}/latest/download -O ${JAR_NAME}
 fi
