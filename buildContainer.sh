@@ -40,6 +40,7 @@ build ${J9_VMS[1]} "$J9_ARGS" "15openj9"
 
 if [ ${push} == "true" ]; then
     git tag $tag
+    git push origin $tag
     echo "$(($tag + 1))" > $TAG_FILE
     git add .
     git commit -m "increasing tag number"
