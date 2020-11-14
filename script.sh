@@ -25,6 +25,17 @@ if [ ${TYPE} != 'waterfall' ]; then
     done
 fi
 
+if [ ${AUTO_PAUSE} == "true" ]; then
+    # use the prepared scheduling file
+    crontab crontab
+    # needed fo the next command
+    atd
+    # enable cron in x min
+    echo "crond" | at now + ${BEFORE_FIRST_PAUSE} min
+    # start knockd
+    knockd -d
+fi
+
 if [ ${FORCE_DOWNLOAD} == "true" ]; then
     rm ${JAR_NAME};
 fi
