@@ -25,10 +25,10 @@ build()
     VM=$1
     ARGS=$2
     VERSION=$3
-    docker build --build-arg IMAGE=$VM --build-arg DEFAULT_ARGS="$ARGS" -t $NAME-$VERSION:$tag -t $NAME_$VERSION:latest .
+    docker build --build-arg IMAGE=$VM --build-arg DEFAULT_ARGS="$ARGS" -t $NAME-$VERSION:$tag -t $NAME-$VERSION:latest .
     if [ ${push} == "true" ]; then
-        docker push $NAME_$VERSION:$tag
-        docker push $NAME_$VERSION:$latest
+        docker push $NAME-$VERSION:$tag
+        docker push $NAME-$VERSION:latest
     fi
 }
 

@@ -4,10 +4,10 @@ A simple docker container that automatically downloads and starts a minecraft se
 ## Available images
 Name | Description
 --- | ---
-dawidr/minecraft-docker_11hotspot | OpenJDK 11 with HotSpot VM
-dawidr/minecraft-docker_15hotspot | OpenJDK 15 with HotSpot VM
-dawidr/minecraft-docker_11openj9 | OpenJDK 11 with Openj9 VM
-dawidr/minecraft-docker_15openj9 | OpenJDK 15 with Openj9 VM
+dawidr/minecraft-docker-11hotspot | OpenJDK 11 with HotSpot VM
+dawidr/minecraft-docker-15hotspot | OpenJDK 15 with HotSpot VM
+dawidr/minecraft-docker-11openj9 | OpenJDK 11 with Openj9 VM
+dawidr/minecraft-docker-15openj9 | OpenJDK 15 with Openj9 VM
 
 ## Usage
 Forward the port 25565 and mount a read/write volume to `/data`, to persist worlds and server settings. If the volume already contains worlds, config files or plugins/mods the server will use those and they will be updated during runtime. It is not possible to change server config using environment variables, please use the regular server config files in the volume.
