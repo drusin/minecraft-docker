@@ -36,7 +36,7 @@ version: '3'
 
 services:
     my-minecraft:
-        image: dawidr/minecraft-docker:11hotspot
+        image: dawidr/minecraft-docker-11hotspot
         environment: 
             TYPE: paper
             VERSION: "1.16.4"
