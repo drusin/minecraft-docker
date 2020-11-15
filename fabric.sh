@@ -2,6 +2,8 @@
 
 mkdir /data/mods -p
 ln -sfn /data/mods mods
+mkdir /data/config -p
+ln -sfn /data/config config
 
 if [ ${AUTO_UPDATE_VIAVERSION} == 'true' ]; then
     wget -O mods/ViaVersion.jar http://myles.us/ViaVersion/latest.jar
