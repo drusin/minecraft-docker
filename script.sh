@@ -16,7 +16,7 @@ ln -sfn /data/logs logs
 if [ ${TYPE} != 'waterfall' ]; then
     # split WORLDS string into array
     IFS=',' read -r -a world_array <<< ${WORLDS}
-    
+
     # bind worlds
     for world in ${world_array[@]}
     do
@@ -49,6 +49,9 @@ case ${TYPE} in
         ;;
     waterfall)
         ./waterfall.sh
+        ;;
+    forge)
+        ./forge.sh
         ;;
 esac
 
