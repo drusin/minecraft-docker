@@ -25,13 +25,13 @@ Forward the port 25565 and mount a read/write volume to `/data`, to persist worl
 | AUTO_UPDATE_VIAVERSION | false                                       | If set to "true", the latest version of ViaVersion will be downloaded and put into the plugins or mods folder                                                           |
 | AUTO_PAUSE             | false                                       | If set to "true", the minecraft server process will be paused when no players are connected. See below for more info                                                    |
 | BEFORE_FIRST_PAUSE     | 5                                           | Time in minutes until the first "AUTO_PAUSE" check is done. See below for more info                                                                                     |
-| FORGE_VERSION          | 34.1.0                                      | Specific version for the Forge Installer. Only used when `TYPE: forge` is used. See [Forge specific Information](#forge-specific-information) below.                    | 
+| FORGE_VERSION          | 34.1.0                                      | Specific version for the Forge Installer. Only used when `TYPE: forge` is used. See [Forge specific Information](#forge-specific-information) below.                    |
 
 ### Forge specific information
 
 For configuring Forge it is necessary to find out, which Forge Version is currently available for your desired Minecraft version.
 Here you can check the Forge versions: http://files.minecraftforge.net/.
-In most cases the recommended version (right one) will fit.
+In most cases the recommended version (right one) will fit. This depends on the mods you are using.
 
 Currently (2020-11-26) Forge is not compatible with Java 15.
 
