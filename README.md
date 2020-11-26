@@ -25,7 +25,15 @@ Forward the port 25565 and mount a read/write volume to `/data`, to persist worl
 | AUTO_UPDATE_VIAVERSION | false                                       | If set to "true", the latest version of ViaVersion will be downloaded and put into the plugins or mods folder                                                           |
 | AUTO_PAUSE             | false                                       | If set to "true", the minecraft server process will be paused when no players are connected. See below for more info                                                    |
 | BEFORE_FIRST_PAUSE     | 5                                           | Time in minutes until the first "AUTO_PAUSE" check is done. See below for more info                                                                                     |
-| FORGE_VERSION          | 34.1.0                                      | Specific version for the Forge Installer. Only used when `TYPE: forge`.                                                                                                                                         |
+| FORGE_VERSION          | 34.1.0                                      | Specific version for the Forge Installer. Only used when `TYPE: forge` is used. See [Forge specific Information](#forge-specific-information) below.                    | 
+
+### Forge specific information
+
+For configuring Forge it is necessary to find out, which Forge Version is currently available for your desired Minecraft version.
+Here you can check the Forge versions: http://files.minecraftforge.net/.
+In most cases the recommended version (right one) will fit.
+
+Currently (2020-11-26) Forge is not compatible with Java 15.
 
 ## Auto pause functionality
 By setting `AUTO_PAUSE` to `"true"`, every 5 min it will be checked if anyone is connected to the server. If noone is, the server process will be stopped and will not consume any processor resources anymore. As soon as someone tries to connect, the server process will be continued - this should work seamlessly, without the players even noticing. This functionality is based on [this comment on the official Mojang bug tracker](https://bugs.mojang.com/browse/MC-149018?focusedCommentId=593606&page=com.atlassian.jira.plugin.system.issuetabpanels%3Acomment-tabpanel#comment-593606).  
