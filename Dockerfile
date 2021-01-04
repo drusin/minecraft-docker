@@ -16,18 +16,12 @@ ENV ADDITIONAL_ARGS=""
 ENV WORLDS="world,world_nether,world_the_end"
 ENV FORCE_DOWNLOAD="true"
 ENV AUTO_UPDATE_VIAVERSION="false"
-ENV AUTO_PAUSE="false"
-ENV BEFORE_FIRST_PAUSE=5
 
 # Just globals, shouldn't need changing
 ENV JAR_NAME="runme.jar"
 
 # for scripting and interacting with the container
 RUN apk add --no-cache bash
-# to delay enabling cron
-RUN apk add --no-cache at
-# to check if someone tries to connect
-RUN apk add --no-cache knock
 
 RUN mkdir /data
 
@@ -39,7 +33,5 @@ VOLUME /data
 
 COPY *.sh ./
 RUN chmod +x *.sh
-COPY crontab ./crontab
-COPY knockd.conf /etc/knockd.conf
 
 ENTRYPOINT "./script.sh"
