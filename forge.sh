@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir /data/mods -p
-ln -sfn /data/mods mods
+export PLUGINS_FOLDER_NAME="mods"
+
 mkdir /data/config -p
 ln -sfn /data/config config
 

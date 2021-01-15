@@ -16,9 +16,8 @@ ENV ADDITIONAL_ARGS=""
 ENV WORLDS="world,world_nether,world_the_end"
 ENV FORCE_DOWNLOAD="true"
 ENV AUTO_UPDATE_VIAVERSION="false"
-
-# Just globals, shouldn't need changing
 ENV JAR_NAME="runme.jar"
+ENV PLUGINS_FOLDER_NAME="plugins"
 
 # for scripting and interacting with the container
 RUN apk add --no-cache bash
