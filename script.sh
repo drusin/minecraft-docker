@@ -58,6 +58,25 @@ ARGS=${ARGS/XMNX/$((MEMORY * 4 / 5))}
 # start the server
 java -Xms${MEMORY}M -Xmx${MEMORY}M ${ARGS} ${ADDITIONAL_ARGS} -jar ${JAR_NAME} nogui
 
+########################################################
+########### After the server has stopped ###############
+########################################################
+
+# server specific cleanup
+case ${TYPE} in
+    custom)
+        ;;
+    fabric)
+        . ./fabric-cleanup.sh
+        ;;
+    forge)
+        ;;
+    paper)
+        ;;
+    waterfall)
+        ;;
+esac
+
 # copy all settings data that were touched back before container shutdown
 cp *.properties /data/ -u
 cp *.json /data/ -u

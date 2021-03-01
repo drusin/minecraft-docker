@@ -3,7 +3,8 @@
 export PLUGINS_FOLDER_NAME="mods"
 
 mkdir /data/config -p
-ln -sfn /data/config config
+mkdir config -p
+cp /data/config/* config
 
 if [ ! -f ${JAR_NAME} ]; then
     wget https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.6.1.51/fabric-installer-0.6.1.51.jar -O fabric-installer.jar
