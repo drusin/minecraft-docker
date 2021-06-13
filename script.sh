@@ -54,8 +54,9 @@ if [ ${AUTO_UPDATE_VIAVERSION} == 'true' ]; then
     wget -O ${PLUGINS_FOLDER_NAME}/ViaVersion.jar http://myles.us/ViaVersion/latest.jar
 fi
 
-# If args not overwritten, set the correct default args
-if [ ${ARGS} == "DEFAULT_ARGS" ]; then
+ARGS=""
+# set correct defualt args
+if [ ${DEFAULT_ARGS} == "true" ]; then
     ARGS=$([ "$JAVA_VM" == "hs" ]) && echo ${HOTSPORT_ARGS} || echo ${J9_ARGS}
 fi
 
