@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+sdk i java ${JAVA_VERSION}.${JAVA_VM}-${JAVA_DIST}
+
 # accept minecraft server eula
 echo "eula=true" > eula.txt
 
@@ -49,6 +52,11 @@ ln -sfn /data/${PLUGINS_FOLDER_NAME} ${PLUGINS_FOLDER_NAME}
 
 if [ ${AUTO_UPDATE_VIAVERSION} == 'true' ]; then
     wget -O ${PLUGINS_FOLDER_NAME}/ViaVersion.jar http://myles.us/ViaVersion/latest.jar
+fi
+
+# If args not overwritten, set the correct default args
+if [ ${ARGS} == "DEFAULT_ARGS" ]; then
+    ARGS=$([ "$JAVA_VM" == "hs" ]) && echo ${HOTSPORT_ARGS} || echo ${J9_ARGS}
 fi
 
 # calculate gencon nursery for openJ9 VM
