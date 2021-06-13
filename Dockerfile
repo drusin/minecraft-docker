@@ -8,7 +8,7 @@ ARG DEFAULT_ARGS="-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=
 
 # API, use for configuration
 ENV TYPE=paper
-ENV VERSION=1.16.3
+ENV MC_VERSION=1.16.3
 ENV FORGE_VERSION=34.1.0
 ENV MEMORY=4096
 ENV ARGS=${DEFAULT_ARGS}
