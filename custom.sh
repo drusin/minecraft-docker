@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp /data/${JAR_NAME} ${JAR_NAME}
+cp /data/$JAR_NAME $JAR_NAME
