@@ -11,7 +11,7 @@ ENV ADDITIONAL_ARGS=""
 ENV WORLDS="world,world_nether,world_the_end"
 ENV FORCE_DOWNLOAD="false"
 ENV AUTO_UPDATE_VIAVERSION="false"
-ENV FABRIC_INSTALLER_VERSION="0.7.3"
+ENV FABRIC_INSTALLER_VERSION="0.7.4"
 ENV FORGE_VERSION="34.1.0"
 
 # Only might need touching for custom jars
@@ -33,7 +33,7 @@ WORKDIR /home/minecraft/
 VOLUME /data
 
 # Copy necessary files and make them executable
-COPY *.sh ./
+COPY /scripts/*.sh ./
 RUN chmod +x *.sh
 
 # Install sdkman and its dependencies
