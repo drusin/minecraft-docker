@@ -4,7 +4,7 @@ source "$HOME/.sdkman/bin/sdkman-init.sh"
 sdk i java $JAVA_VERSION.$JAVA_VM-$JAVA_DIST
 
 # accept minecraft server eula
-echo "eula=true" > eula.txt
+echo "eula=$EULA" > eula.txt
 
 # copy all flat data to workdir
 cp /data/* ./
@@ -26,6 +26,9 @@ case $TYPE in
         ;;
     paper)
         . ./paper.sh
+        ;;
+    spigot)
+        . ./spigot.sh
         ;;
     waterfall)
         . ./waterfall.sh
@@ -85,6 +88,8 @@ case $TYPE in
     forge)
         ;;
     paper)
+        ;;
+    spigot)
         ;;
     waterfall)
         ;;
