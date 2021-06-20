@@ -1,6 +1,7 @@
 #!/bin/bash
 
 NAME="dawidr/minecraft-docker"
+PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7"
 
 VERSION_FILE="version"
 read -r version<$VERSION_FILE
@@ -34,19 +35,17 @@ do
 done
 
 newVersion=${versionArr[0]}.${versionArr[1]}.${versionArr[2]}
-echo $newVersion
 echo $newVersion > $VERSION_FILE
 
-docker build -t $NAME:v$newVersion -t $NAME:v${versionArr[0]} -t $NAME:v${versionArr[0]}.${versionArr[1]} .
 if [ ${push} == "true" ]; then
-    docker push $NAME:v$newVersion
-    docker push $NAME:v${versionArr[0]}
-    docker push $NAME:v${versionArr[0]}.${versionArr[1]}
+    docker buildx build -t $NAME:v$newVersion -t $NAME:v${versionArr[0]} -t $NAME:v${versionArr[0]}.${versionArr[1]} -t$NAME:latest --platform $PLATFORMS --push .
+else
+    docker build -t $NAME:v$newVersion -t $NAME:v${versionArr[0]} -t $NAME:v${versionArr[0]}.${versionArr[1]} .
 fi
 
 if [ ${push} == "true" ]; then
-    git tag $newVersion
-    git push origin $newVersion
+    git tag v$newVersion
+    git push origin v$newVersion
     git add .
     git commit -m "increasing version number"
     git push
