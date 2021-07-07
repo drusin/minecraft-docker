@@ -26,6 +26,10 @@ ENV J9_ARGS="-XmnsXMNSM -XmnxXMNXM -Xgc:concurrentScavenge -Xgc:dnssExpectedTime
 
 SHELL ["/bin/bash", "-c"]
 
+# Install dependencies for sdkman and sdkman itself
+RUN apt-get update -y && apt-get install zip unzip wget curl -y
+RUN curl -s "https://get.sdkman.io?rcupdate=false" | bash
+
 # Prepare folder structure
 RUN mkdir /data
 WORKDIR /home/minecraft/
@@ -34,10 +38,6 @@ VOLUME /data
 # Copy necessary files and make them executable
 COPY /scripts/*.sh ./
 RUN chmod +x *.sh
-
-# Install sdkman and its dependencies
-RUN apt-get update -y && apt-get install zip unzip wget curl -y
-RUN curl -s "https://get.sdkman.io?rcupdate=false" | bash
 
 EXPOSE 25565
 

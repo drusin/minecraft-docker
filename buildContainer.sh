@@ -38,9 +38,9 @@ newVersion=${versionArr[0]}.${versionArr[1]}.${versionArr[2]}
 echo $newVersion > $VERSION_FILE
 
 if [ ${push} == "true" ]; then
-    docker buildx build -t $NAME:v$newVersion -t $NAME:v${versionArr[0]} -t $NAME:v${versionArr[0]}.${versionArr[1]} -t$NAME:latest --platform $PLATFORMS --push .
+    docker buildx build -t $NAME:v$newVersion -t $NAME:v${versionArr[0]} -t $NAME:v${versionArr[0]}.${versionArr[1]} -t $NAME:latest --platform $PLATFORMS --push .
 else
-    docker build -t $NAME:v$newVersion -t $NAME:v${versionArr[0]} -t $NAME:v${versionArr[0]}.${versionArr[1]} .
+    docker build -t $NAME:test .
 fi
 
 if [ ${push} == "true" ]; then

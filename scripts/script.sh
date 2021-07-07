@@ -1,9 +1,12 @@
 #!/bin/bash
 
 source "$HOME/.sdkman/bin/sdkman-init.sh"
-sdk i java $JAVA_VERSION.$JAVA_VM-$JAVA_DIST
 
-# accept minecraft server eula
+if ! java -version 2>&1 >/dev/null | grep -q $JAVA_VERSION ; then
+    sdk update
+    sdk i java $JAVA_VERSION.$JAVA_VM-$JAVA_DIST
+fi
+
 echo "eula=$EULA" > eula.txt
 
 # copy all flat data to workdir
