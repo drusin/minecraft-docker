@@ -8,19 +8,18 @@ Forward the port 25565 and mount a read/write volume to `/data`, to persist worl
 | Name                   | Default value                    | Description                                                                                                                                                             |
 | ---------------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | TYPE                   | paper                            | Which server jar to use. Currently supported: paper, fabric, spigot, forge, waterfall, custom (see [Using custom jars](#using-custom-jars))                             |
-| MC_VERSION             | 1.16.5                           | Which Minecraft version to use                                                                                                                                          |
+| MC_VERSION             | 1.17.1                           | Which Minecraft version to use                                                                                                                                          |
 | EULA                   | false                            | If you accept Mojang's EULA                                                                                                                                             |
-| JAVA_VERSION           | 11.0.11                          | Which Java version to use                                                                                                                                               |
-| JAVA_VM                | hs                               | Which Java vm to use: "hs" for HotSpot and "j9" for Openj9                                                                                                              |
+| JAVA_VERSION           | 17.0.1                           | Which Java version to use                                                                                                                                               |
+| JAVA_IDENTIFIER        | tem                              | Which Java vendor to use. tem for Temurin (formally HotSpot), sem for Semeru (formally OpenJ9)                                                                          |
 | MEMORY                 | 4096                             | How much RAM to allocate for the server (in MB)                                                                                                                         |
-| DEFAULT_ARGS           | TRUE                             | Which arguments to pass to the Java process. Depending on the container it uses them from https://mcflags.emc.gs or https://steinborn.me/posts/tuning-minecraft-openj9/ |
+| DEFAULT_ARGS           | TRUE                             | Use recommended java startup flags. Depending on the container it uses them from https://mcflags.emc.gs or https://steinborn.me/posts/tuning-minecraft-openj9/          |
 | ADDITIONAL_ARGS        |                                  | Additional arguments if you don't want to overwrite the whole ARGS                                                                                                      |
 | WORLDS                 | world,world_nether,world_the_end | Which world directories to use (ignored when using waterfall)                                                                                                           |
 | FORCE_DOWNLOAD         | false                            | If set to "false", no server jar will be downloaded if there is already one present from a previous run                                                                 |
 | AUTO_UPDATE_VIAVERSION | false                            | If set to "true", the latest version of ViaVersion will be downloaded and put into the plugins or mods folder                                                           |
 | JAR_NAME               | runme.jar                        | Name of the jar to run. Only might need changing for `TYPE: custom`, see [Using custom jars](#using-custom-jars)                                                        |
 | PLUGINS_FOLDER_NAME    | plugins                          | Name of the folder to use for plugins or mods. Only might need changing for `TYPE: custom`, see [Using custom jars](#using-custom-jars)                                 |
-| JAVA_DIST              | adpt                             | Identifier for the java vendor, e.g. "adpt" for AdoptOpenJDK                                                                                                            |
 
 ### Choosing the correct java version
 Until Minecraft 1.16.5 the oficially recommended Java version was 8, since Minecraft 1.17 Java 16 is required. Some server types don't support the newest version yet, some only support it for recent versions. I would suggest to use the latest LTS version (11.0.11 at the time of writing) for Minecraft until 1.16.5 and the current version (16.0.1 at the time of writing) for Minecraft 1.17 and up.  
@@ -44,7 +43,7 @@ services:
             VERSION: "1.16.5"
             EULA: "true"
             JAVA_VERSION: "16.0.1"
-            JAVA_VM: "hs"
+            JAVA_IDENTIFIER: "tem"
             MEMORY: 3072
             DEFAULT_ARGS: "true"
             WORLDS: "world,world_nether,world_the_end,world_creative"
