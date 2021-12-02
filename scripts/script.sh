@@ -4,7 +4,7 @@ source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 if ! java -version 2>&1 >/dev/null | grep -q $JAVA_VERSION ; then
     sdk update
-    sdk i java $JAVA_VERSION.$JAVA_VM-$JAVA_DIST
+    sdk i java $JAVA_VERSION-$JAVA_IDENTIFIER
 fi
 
 echo "eula=$EULA" > eula.txt
@@ -63,10 +63,10 @@ fi
 ARGS=""
 # set correct defualt args
 if [ $DEFAULT_ARGS == "true" ]; then
-    if [ $JAVA_VM == "hs" ]; then
-        ARGS=$HOTSPORT_ARGS
+    if [ $JAVA_IDENTIFIER == "sem" ]; then
+        ARGS=$SEM_ARGS
     else
-        ARGS=$J9_ARGS
+        ARGS=$TEM_ARGS
     fi
 fi
 
