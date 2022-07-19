@@ -9,10 +9,11 @@ const safe = async (fun) => {
     catch (error) {
         // ignore
     }
-}
+};
 
 // install Java if necessary
-if (E.SKIP_JAVA == 'false' && !(await $`java --version`).stdout.match(E.JAVA_VERSION)) {
+const installedJavaVersion = await safe(() => $`java --version`);
+if (E.SKIP_JAVA == 'false' && (!installedJavaVersion || !installedJavaVersion.stdout.match(E.JAVA_VERSION))) {
     await $`./install-java.sh`;
 }
 else {

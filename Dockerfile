@@ -1,10 +1,10 @@
-FROM ubuntu:20.04
+FROM node:16
 
 # API, use for configuration
 ENV JAVA_VERSION="17.0.3"
 ENV JAVA_IDENTIFIER="tem"
 ENV TYPE="paper"
-ENV MC_VERSION="1.17.1"
+ENV MC_VERSION="1.19"
 ENV MEMORY="4096"
 ENV EULA="false"
 ENV DEFAULT_ARGS="true"
@@ -26,8 +26,12 @@ ENV SKIP_JAVA="false"
 ENV DATA_DIR_NAME="data"
 ENV DATA_DIR="/${DATA_DIR_NAME}/"
 ENV WORK_DIR="./"
+ENV JAVA_PATH="/root/.sdkman/candidates/java/current/bin/java"
 
 SHELL ["/bin/bash", "-c"]
+
+# Install zx
+RUN npm install --location=global zx
 
 # Install dependencies for sdkman and sdkman itself
 RUN apt-get update -y && apt-get install zip unzip wget curl -y
@@ -39,9 +43,10 @@ WORKDIR /home/minecraft/
 VOLUME /data
 
 # Copy necessary files and make them executable
-COPY /scripts/*.sh ./
+COPY /scripts/* ./
 RUN chmod +x *.sh
+RUN chmod +x *.mjs
 
 EXPOSE 25565
 
-ENTRYPOINT "./script.sh"
+ENTRYPOINT "./script.mjs"
