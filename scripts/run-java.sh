@@ -1,3 +1,3 @@
 #!/bin/bash
 
-java $1
+$JAVA_PATH $1
