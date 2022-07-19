@@ -23,7 +23,8 @@ ENV SEM_ARGS="-XmnsXMNSM -XmnxXMNXM -Xgc:concurrentScavenge -Xgc:dnssExpectedTim
 
 # Necessary for local testing only
 ENV SKIP_JAVA="false"
-ENV DATA_DIR="/data/"
+ENV DATA_DIR_NAME="data"
+ENV DATA_DIR="/${DATA_DIR_NAME}/"
 ENV WORK_DIR="./"
 
 SHELL ["/bin/bash", "-c"]
