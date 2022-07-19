@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp config/* /data/config -ru
+cp config/* $DATA_DIR/config -ru

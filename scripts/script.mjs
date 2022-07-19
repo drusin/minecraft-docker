@@ -33,13 +33,22 @@ if (E.FORCE_DOWNLOAD == 'true') {
 // download server jar and do specific setup
 switch (E.TYPE) {
     case 'custom':
-        //custom
+        await $`./custom.sh`;
         break;
     case 'fabric':
-        //fabric
+        await $`./fabric.mjs`
+        break;
+    case 'forge':
+        //forge
         break;
     case 'paper':
         await $`./paper.mjs`;
+        break;
+    case 'spigot':
+        //spigot
+        break;
+    case 'waterfall':
+        //waterfall
         break;
 }
 
@@ -86,7 +95,7 @@ if (E.DEFAULT_ARGS == "true") {
 const finalArgs = `-Xms${E.MEMORY}M -Xmx${E.MEMORY}M ${args} ${E.ADDITIONAL_ARGS} -jar ${E.JAR_NAME} nogui`;
 console.log('########### Using the following java startup args ###############');
 console.log(finalArgs);
-await $`./start-server.sh ${finalArgs}`;
+await $`./run-java.sh ${finalArgs}`;
 
 
 // ########################################################
@@ -97,7 +106,7 @@ console.log('########### Server has stopped, cleaning up ###############');
 
 switch(E.TYPE) {
     case 'fabric':
-        // fabric cleanup
+        await $`./fabric-cleanup.mjs`;
         break;
 }
 
