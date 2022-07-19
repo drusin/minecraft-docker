@@ -39,16 +39,16 @@ switch (E.TYPE) {
         await $`./fabric.mjs`
         break;
     case 'forge':
-        //forge
+        await $`./forge.mjs`
         break;
     case 'paper':
         await $`./paper.mjs`;
         break;
     case 'spigot':
-        //spigot
+        await $`./spigot.sh`
         break;
     case 'waterfall':
-        //waterfall
+        await $`./waterfall.mjs`
         break;
 }
 

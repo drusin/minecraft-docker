@@ -1,6 +1,7 @@
 #!/usr/bin/env zx
 
 process.env.PLUGINS_FOLDER_NAME = 'plugins';
+
 if (!(await fs.exists(process.env.JAR_NAME))) {
     const response = await fetch(`https://papermc.io/api/v2/projects/paper/versions/${process.env.MC_VERSION}`);
     const { builds } = await response.json();
