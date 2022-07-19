@@ -106,6 +106,7 @@ console.log('########### Server has stopped, cleaning up ###############');
 
 switch(E.TYPE) {
     case 'fabric':
+    case 'forge':
         await $`./fabric-cleanup.mjs`;
         break;
 }
