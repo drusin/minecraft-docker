@@ -1,4 +1,6 @@
-#!/usr/bin/env zx
+#!/usr/bin/env node
+
+import { $, fs, cd } from 'zx';
 
 const setEnv = async (fileName) => {
     (await fs.readFile(fileName, 'utf8'))

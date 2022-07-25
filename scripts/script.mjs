@@ -1,4 +1,6 @@
-#!/usr/bin/env zx
+#!/usr/bin/env node
+
+import { $, fs } from 'zx';
 
 const E = process.env;
 
