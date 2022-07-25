@@ -11,7 +11,7 @@ catch (error) {
     // cp is stupid
 }
 
-if (!(await fs.exists(process.env.JAR_NAME))) {
+if (!(await fs.exists(process.env.JAR_NAME)) && false) {
     const response = await fetch('https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json');
     const { promos } = await response.json();
 
@@ -31,5 +31,19 @@ if (!(await fs.exists(process.env.JAR_NAME))) {
     await $`./run-java.sh ${args}`;
     console.log('############## Forge installation done! ###########')
 
-    await $`ln -s forge-$MC_VERSION-${versionToUse}.jar $JAR_NAME`;
+    
+    // await $`mv forge-$MC_VERSION-${versionToUse}.jar $JAR_NAME`;
 }
+
+$`echo "fake jar for forge" > $JAR_NAME`;
+
+const forgeArgsFile = (await fs.readFile(`./run.sh`, 'utf-8'))
+    .split('\n')
+    .find(str => !str.startsWith('#'))
+    .split(' ')
+    .find(str => str.startsWith('@libraries'))
+    ;
+
+process.env.START_COMMAND = forgeArgsFile;
+
+await $`echo $START_COMMAND`;

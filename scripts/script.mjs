@@ -25,9 +25,8 @@ await fs.writeFile('eula.txt', `eula=${E.EULA}`);
 // copy all flat data to workdir
 await safe(() =>  $`cp $DATA_DIR/* ./`);
 
-
 if (E.FORCE_DOWNLOAD == 'true') {
-    console.log('########### deleting $JAR_NAME ###############')
+    console.log(`########### deleting ${E.JAR_NAME} ###############`)
     await $`rm $JAR_NAME`;
 }
 
@@ -64,27 +63,28 @@ for (let world of worlds) {
     await $`ln -sfn $DATA_DIR/${world} ${world}`;
 }
 
+await $`echo $PLUGINS_FOLDER_NAME`;
 // bind plugins folder
 await $`mkdir $DATA_DIR/$PLUGINS_FOLDER_NAME -p`;
 await $`ln -sfn $DATA_DIR/$PLUGINS_FOLDER_NAME $PLUGINS_FOLDER_NAME`;
 
 // skipping autoupdating viaversion
 
-let args = '';
+let defaultArgs = '';
 // choose correct default args
 if (E.DEFAULT_ARGS == "true") {
     if (E.JAVA_IDENTIFIER == "sem") {
         console.log('########### Using default args for Semeru ###############');
-        args = E.SEM_ARGS;
+        defaultArgs = E.SEM_ARGS;
         // calculate gencon nursery
-        args = args.replace('XMNS', E.MEMORY / 2).replace('XMNX', E.MEMORY * 4 / 5);
+        defaultArgs = defaultArgs.replace('XMNS', E.MEMORY / 2).replace('XMNX', E.MEMORY * 4 / 5);
     }
     else {
         console.log('########### Using default args for Temurin ###############');
-        args = E.TEM_ARGS;
+        defaultArgs = E.TEM_ARGS;
         if (E.MEMORY < 256) {
             // remove too high Survivor Ratio
-            args = args.replace('-XX:SurvivorRatio=32 ', '');
+            defaultArgs = defaultArgs.replace('-XX:SurvivorRatio=32 ', '');
         }
     }
 }
@@ -93,7 +93,9 @@ if (E.DEFAULT_ARGS == "true") {
 // ########################################################
 // ################ Starting the server ###################
 // ########################################################
-const finalArgs = `-Xms${E.MEMORY}M -Xmx${E.MEMORY}M ${args} ${E.ADDITIONAL_ARGS} -jar ${E.JAR_NAME} nogui`;
+console.log(E.START_COMMAND);
+await $`echo $START_COMMAND`;
+const finalArgs = `-Xms${E.MEMORY}M -Xmx${E.MEMORY}M ${defaultArgs} ${E.ADDITIONAL_ARGS} ${E.START_COMMAND}`;
 console.log('########### Using the following java startup args ###############');
 console.log(finalArgs);
 await $`./run-java.sh ${finalArgs}`;
