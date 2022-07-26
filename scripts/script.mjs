@@ -1,17 +1,13 @@
 #!/usr/bin/env node
 
+import { safe } from './helper.js';
 import { $, fs } from 'zx';
+import paper from './paper.js';
+import fabric from './fabric.js';
+import forge from './forge.js';
+import waterfall from './waterfall.js';
 
 const E = process.env;
-
-const safe = async (fun) => {
-    try {
-        return await fun();
-    }
-    catch (error) {
-        // ignore
-    }
-};
 
 // install Java if necessary
 const installedJavaVersion = await safe(() => $`java --version`);
@@ -29,7 +25,7 @@ await safe(() =>  $`cp $DATA_DIR/* ./`);
 
 if (E.FORCE_DOWNLOAD == 'true') {
     console.log(`########### deleting ${E.JAR_NAME} ###############`)
-    await $`rm $JAR_NAME`;
+    await safe(() => $`rm $JAR_NAME`);
 }
 
 // download server jar and do specific setup
@@ -38,19 +34,19 @@ switch (E.TYPE) {
         await $`./custom.sh`;
         break;
     case 'fabric':
-        await $`./fabric.mjs`
+        await fabric(E);
         break;
     case 'forge':
-        await $`./forge.mjs`
+        await forge(E);
         break;
     case 'paper':
-        await $`./paper.mjs`;
+        await paper(E);
         break;
     case 'spigot':
         await $`./spigot.sh`
         break;
     case 'waterfall':
-        await $`./waterfall.mjs`
+        await waterfall(E);
         break;
 }
 
