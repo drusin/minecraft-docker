@@ -16,8 +16,8 @@ const setEnv = async (fileName) => {
 }
 
 await setEnv('Dockerfile');
-
-await setEnv('.env');
+await setEnv('testenv');
+await setEnv('testenv.override');
 
 await $`mkdir -p $DATA_DIR_NAME`;
 await $`mkdir -p $WORK_DIR`;

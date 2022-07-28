@@ -12,4 +12,4 @@ export default async function(E = process.env) {
         const url = `https://papermc.io/api/v2/projects/paper/versions/${E.MC_VERSION}/builds/${build}/downloads/paper-${E.MC_VERSION}-${build}.jar`;
         await $`wget ${url} -O $JAR_NAME`;
     }
-}
+};

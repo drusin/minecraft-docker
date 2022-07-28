@@ -9,4 +9,4 @@ try {
 }
 catch (error) {
     //ignore
-}
+};

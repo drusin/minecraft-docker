@@ -2,10 +2,6 @@
   "name": "minecraft-docker",
   "version": "1.0.0",
   "description": "A simple docker container that automatically installs java and downloads and starts a minecraft server.",
-  "main": "test.js",
-  "scripts": {
-    "start": "./test.mjs"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/drusin/minecraft-docker.git"

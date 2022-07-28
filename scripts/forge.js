@@ -27,7 +27,7 @@ export default async function (E = process.env) {
     
         console.log('############## Installing Forge, this might take a while! ###########')
         const args = '-jar forge-installer.jar server --installServer';
-        await $`./run-java.sh ${args}`;
+        await $`./run-java.sh ${args} >/dev/null`;
         console.log('############## Forge installation done! ###########')
     }
     
@@ -44,4 +44,4 @@ export default async function (E = process.env) {
     
     await $`echo $START_COMMAND`;
 
-}
+};
