@@ -18,4 +18,4 @@ export default async function (E = process.env) {
         const url = `https://papermc.io/api/v2/projects/waterfall/versions/${waterfallVersion}/builds/${build}/downloads/waterfall-${waterfallVersion}-${build}.jar`;
         await $`wget ${url} -O $JAR_NAME`;
     }
-}
+};

@@ -8,7 +8,9 @@ if [ ! -f $JAR_NAME ]; then
     mkdir buildTools
     cd buildTools
     wget https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar -O BuildTools.jar
-    java -jar BuildTools.jar --rev $MC_VERSION
+    echo "########### Starting Spigot build tools, this might take a while! #################"
+    java -jar BuildTools.jar --rev $MC_VERSION >/dev/null
+    echo "########### Spigot build done #################"
     mv spigot-$MC_VERSION.jar ../$JAR_NAME
     cd ..
 fi

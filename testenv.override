@@ -1,0 +1,11 @@
+# Use this file to override environment vars from the Dockerfile for local testing
+
+# ENV JAVA_VERSION="17.0.4"
+# ENV JAVA_IDENTIFIER="tem"
+# ENV TYPE="waterfall"
+# ENV MC_VERSION="1.19"
+# ENV MEMORY="4096"
+# ENV DEFAULT_ARGS="true"
+# ENV ADDITIONAL_ARGS=""
+# ENV WORLDS="world,world_nether,world_the_end"
+# ENV FORCE_DOWNLOAD="false"

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-$JAVA_PATH $1
+$JAVA_PATH -Xms${MEMORY}M -Xmx${MEMORY}M $1 $2

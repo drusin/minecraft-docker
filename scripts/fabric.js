@@ -22,4 +22,4 @@ export default async function(E = process.env) {
         await $`mv fabric-server-launch.jar $JAR_NAME`;
     }
 
-}
+};

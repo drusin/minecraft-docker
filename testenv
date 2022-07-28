@@ -1,10 +1,14 @@
 # Use this file to override environment vars from the Dockerfile for local testing
-ENV SKIP_JAVA="true"
-ENV EULA="true"
+
+# necessary overrrides to make local debugging work
 ENV DATA_DIR_NAME="test-data"
 ENV DATA_DIR="../test-data"
 ENV WORK_DIR="test-workdir"
 ENV JAVA_PATH="java"
-ENV TYPE="spigot"
 ENV START_COMMAND="-jar runme.jar nogui"
-ENV FORCE_DOWNLOAD="true"
+
+# Skip the java version check
+ENV SKIP_JAVA="true"
+
+# I need this to be default for local dev, sorry Mojang
+ENV EULA="true"

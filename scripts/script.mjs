@@ -91,9 +91,7 @@ if (E.DEFAULT_ARGS == "true") {
 // ########################################################
 // ################ Starting the server ###################
 // ########################################################
-console.log(E.START_COMMAND);
-await $`echo $START_COMMAND`;
-const finalArgs = `-Xms${E.MEMORY}M -Xmx${E.MEMORY}M ${defaultArgs} ${E.ADDITIONAL_ARGS} ${E.START_COMMAND}`;
+const finalArgs = `${defaultArgs} ${E.ADDITIONAL_ARGS} ${E.START_COMMAND}`;
 console.log('########### Using the following java startup args ###############');
 console.log(finalArgs);
 await $`./run-java.sh ${finalArgs}`;
