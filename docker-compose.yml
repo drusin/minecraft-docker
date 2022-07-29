@@ -1,7 +1,7 @@
 version: "3"
 services:
   test:
-    image: dawidr/minecraft-docker:test
+    image: dawidr/minecraft-docker:3.0.0
     ports:
       - "25565:25565"
     environment:
