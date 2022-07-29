@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+/**
+ * The main script run in the Docker container. Installs Java, downloads the server, binds directories, copies files, runs the server...
+ */
+
 import { safe } from './helper.js';
 import { $, fs } from 'zx';
 import paper from './paper.js';
@@ -23,7 +27,7 @@ await fs.writeFile('eula.txt', `eula=${E.EULA}`);
 // copy all flat data to workdir
 await safe(() =>  $`cp $DATA_DIR/* ./`);
 
-if (E.FORCE_DOWNLOAD == 'true') {
+if (E.FORCE_DOWNLOAD == 'true' && E.TYPE != 'custom') {
     console.log(`########### deleting ${E.JAR_NAME} ###############`)
     await safe(() => $`rm $JAR_NAME`);
 }
@@ -48,6 +52,10 @@ switch (E.TYPE) {
     case 'waterfall':
         await waterfall(E);
         break;
+    default:
+        // no supported Minecraft server type detected
+        console.error(`Unsupported server type ${E.TYPE} - aborting!`);
+        await $`exit 1`;
 }
 
 // bind large directories to avoid copying huge files
@@ -61,7 +69,6 @@ for (let world of worlds) {
     await $`ln -sfn $DATA_DIR/${world} ${world}`;
 }
 
-await $`echo $PLUGINS_FOLDER_NAME`;
 // bind plugins folder
 await $`mkdir $DATA_DIR/$PLUGINS_FOLDER_NAME -p`;
 await $`ln -sfn $DATA_DIR/$PLUGINS_FOLDER_NAME $PLUGINS_FOLDER_NAME`;

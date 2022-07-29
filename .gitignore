@@ -1,6 +1,7 @@
 /test-data/
 /test-workdir/
 /node_modules/
+/test-minecraft-volume/
 
 docker-compose.override.yml
 testenv.override

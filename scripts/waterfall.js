@@ -11,6 +11,7 @@ export default async function (E = process.env) {
     
     if (!(await fs.pathExists(E.JAR_NAME))) {
         const versionSplit = E.MC_VERSION.split('.');
+        // Waterfall ignores patch versions...
         const waterfallVersion = `${versionSplit[0]}.${versionSplit[1]}`;
         const response = await fetch(`https://papermc.io/api/v2/projects/waterfall/versions/${waterfallVersion}`);
         const { builds } = await response.json();

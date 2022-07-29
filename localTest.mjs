@@ -1,7 +1,14 @@
 #!/usr/bin/env node
 
+/**
+ * Runs all the scripts locally instead of building a Docker container for faster debugging/prototyping. Use the file "testenv.override" to change environment variables.
+ */
+
 import { $, fs, cd } from 'zx';
 
+/**
+ * Reads and sets the environment variables from a Dockerfile-like file named @param fileName
+ */
 const setEnv = async (fileName) => {
     (await fs.readFile(fileName, 'utf8'))
         .split('\n')
