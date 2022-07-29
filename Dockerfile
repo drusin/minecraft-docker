@@ -30,9 +30,6 @@ ENV SKIP_JAVA="false"
 
 SHELL ["/bin/bash", "-c"]
 
-# Install zx
-RUN npm install --location=global zx
-
 # Install dependencies for sdkman and sdkman itself
 RUN apt-get update -y && apt-get install zip unzip wget curl -y
 RUN curl -s "https://get.sdkman.io?rcupdate=false" | bash
