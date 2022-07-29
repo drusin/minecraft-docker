@@ -5,14 +5,13 @@ services:
     environment:
       # - JAVA_VERSION=17.0.4
       # - JAVA_IDENTIFIER=tem
-      - TYPE=spigot
+      # - TYPE=paper
       # - MC_VERSION=1.19
       # - MEMORY=4096
-      - EULA=true
+      # - EULA=false
       # - DEFAULT_ARGS=true
       # - ADDITIONAL_ARGS=
       # - WORLDS=world,world_nether,world_the_end
       # - FORCE_DOWNLOAD=false
-      # - AUTO_UPDATE_VIAVERSION=false
       # - JAR_NAME=runme.jar
       # - PLUGINS_FOLDER_NAME=plugins

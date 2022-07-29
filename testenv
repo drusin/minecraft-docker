@@ -1,4 +1,4 @@
-# Use this file to override environment vars from the Dockerfile for local testing
+# This file is used to override environment vars from the Dockerfile to make local testing work
 
 # necessary overrrides to make local debugging work
 ENV DATA_DIR_NAME="test-data"

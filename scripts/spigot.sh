@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Mostly running fixed commands and renaming files, can stay as a bash script now
+
 export PLUGINS_FOLDER_NAME="plugins"
 
 if [ ! -f $JAR_NAME ]; then
