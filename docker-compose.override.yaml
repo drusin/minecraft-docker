@@ -1,13 +1,14 @@
 version: "3"
 services:
   test:
+    image: dawidr/minecraft-docker:test
     environment:
       # - JAVA_VERSION=17.0.4
       # - JAVA_IDENTIFIER=tem
-      # - TYPE=paper
+      - TYPE=spigot
       # - MC_VERSION=1.19
       # - MEMORY=4096
-      # - EULA=true
+      - EULA=true
       # - DEFAULT_ARGS=true
       # - ADDITIONAL_ARGS=
       # - WORLDS=world,world_nether,world_the_end
