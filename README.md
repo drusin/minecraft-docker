@@ -54,7 +54,7 @@ Just run `./localTest.mjs`. It will mimic some of the behavior defined in the Do
 1. Read and set all environment variables defined in `Dockerfile`, `testenv` and `testenv.override`
 2. Create the folder `test-data` which mimics the bound read/write volume
 3. Create the folder `test-workdir` which mimics the working directory in the container
-4. Copy all the script files form `/scripts` to `test-workdir`
+4. Create symbolic links to all scripts form `/scripts` in `test-workdir` and make script files executable
 5. Start the main script `script.mjs` from `test-workdir`
 If you did not change any environnement variables the end result should be a running, freshly downloaded version of papermc.
 
@@ -62,4 +62,4 @@ If you did not change any environnement variables the end result should be a run
 The file `testenv` changes the values of a few environment variables to make the scripts function locally. You should only touch this file if you know what you are doing and don't need to touch it if you just need to change some "regular" environment variables while testing/prototyping. Add your changed variables to `testenv.override` instead or comment in the already present but commented out lines.
 
 #### Debugging
-Since all the script files are copied to the fake working directory and run from there breakpoints in files which are in the `/scripts` folder don't work. To work around that you can set a breakpoint on the last line of code in `localTest.mjs` and then, since all the files will be copied by then, browse the files in `/test-workdir` and put breakpoints in them. **Watch out** - all script files in `/test-workdir` will be overwritten next time you run `localTest.mjs` so make sure you are making changes to the files in `/scripts`!
+Instead of copying the script files, symbolic links are used which means you can work directly on the script files in the `scripts` directory, including breakpoints!
