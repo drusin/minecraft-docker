@@ -4,7 +4,24 @@
  * Runs all the scripts locally instead of building a Docker container for faster debugging/prototyping. Use the file "testenv.override" to change environment variables.
  */
 
-import { $, fs, cd, path } from 'zx';
+import { $, fs, cd, path, argv } from 'zx';
+
+if (argv.h || argv.help) {
+    const message = `
+    Helper script to run the container logic directly in bash, for local debugging or fast prototyping. It sets necessary environment variables and creates necessary directories. See readme for system requirements
+
+    Usage: localTest.mjs [OPTION] [FILENAME]
+
+    If no filename is provided, "script.mjs" will be run.
+
+    Options:
+
+    -c | --clean    deletes the temporary data and work directories before running logic
+    -h | --help     prints this help message
+    `;
+    console.log(message);
+    process.exit(0);
+}
 
 /**
  * Reads and sets the environment variables from a Dockerfile-like file named @param fileName
@@ -26,6 +43,11 @@ await setEnv('Dockerfile');
 await setEnv('testenv');
 await setEnv('testenv.override');
 
+if (argv.c || argv.clean) {
+    await $`rm -frd $WORK_DIR`;
+    await $`rm -frd $DATA_DIR_NAME`;
+}
+
 await $`mkdir -p $DATA_DIR_NAME`;
 await $`mkdir -p $WORK_DIR`;
 
@@ -41,4 +63,9 @@ cd(process.env.WORK_DIR);
 await $`sudo chmod +x *.mjs`;
 await $`sudo chmod +x *.sh`;
 
-$`./script.mjs`;
+const fileName = process.argv.slice(2)
+    // is there a script file (.mjs or .sh) in the args?
+    .find(arg => arg.match(/.*?\.(mjs|sh)/))
+    || 'script.mjs'
+
+$`./${fileName}`;
