@@ -2,6 +2,7 @@ version: "3"
 services:
   test:
     image: dawidr/minecraft-docker:4.0.0
+    container_name: test_minecraft-docker
     ports:
       - "25565:25565"
     environment:
@@ -10,11 +11,12 @@ services:
       - TYPE=paper
       - MC_VERSION=1.19
       - MEMORY=4096
-      - EULA=false
+      - EULA=true
       - DEFAULT_ARGS=true
       - ADDITIONAL_ARGS=
       - FORCE_DOWNLOAD=false
       - JAR_NAME=runme.jar
     stdin_open: true
+    tty: true
     volumes:
       - ./test-minecraft-volume:/data:rw

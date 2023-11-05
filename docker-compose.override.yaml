@@ -2,7 +2,7 @@ version: "3"
 services:
   test:
     image: dawidr/minecraft-docker:test
-    environment:
+    # environment:
       # - JAVA_VERSION=17.0.4
       # - JAVA_IDENTIFIER=tem
       # - TYPE=paper
