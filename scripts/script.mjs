@@ -19,7 +19,7 @@ fs.writeFileSync('eula.txt', `eula=${E.EULA}`);
 // install Java if necessary
 const installedJavaVersion = await safe(() => $`java --version`);
 if (E.SKIP_JAVA == 'false' && (!installedJavaVersion || !installedJavaVersion.stdout.match(E.JAVA_VERSION))) {
-    await $`./install-java.sh`;
+    await $`$WORK_DIR/install-java.sh`;
 }
 else {
     console.log('Matching Java version detected, skipping');
