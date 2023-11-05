@@ -24,7 +24,7 @@ ENV START_COMMAND="-jar $JAR_NAME nogui"
 # Necessary for local testing only, shouldn't need touching
 ENV DATA_DIR_NAME="data"
 ENV DATA_DIR="/${DATA_DIR_NAME}/"
-ENV WORK_DIR="./"
+ENV WORK_DIR="/home/minecraft/"
 ENV JAVA_PATH="/root/.sdkman/candidates/java/current/bin/java"
 ENV SKIP_JAVA="false"
 
