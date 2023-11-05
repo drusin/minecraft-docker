@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-import { $, fs, fetch } from 'zx';
+import { $, fetch } from 'zx';
 
 export default async function(E = process.env) {
-    E.PLUGINS_FOLDER_NAME = 'mods';
-    
     // Find the right fabric installer for the requested Minecraft version
     const response = await fetch('https://maven.fabricmc.net/net/fabricmc/fabric-installer/maven-metadata.xml');
     const versionXML = await response.text();

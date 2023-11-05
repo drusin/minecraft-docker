@@ -7,5 +7,4 @@
 # ENV MEMORY="4096"
 # ENV DEFAULT_ARGS="true"
 # ENV ADDITIONAL_ARGS=""
-# ENV WORLDS="world,world_nether,world_the_end"
 # ENV FORCE_DOWNLOAD="false"

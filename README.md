@@ -5,23 +5,28 @@ A simple docker container that automatically installs java and downloads and sta
 Forward the port 25565 and mount a read/write volume to `/data`, to persist worlds and server settings. If the volume already contains worlds, config files or plugins/mods the server will use those and they will be updated during runtime. It is not possible to change server config using environment variables, please use the regular server config files in the volume.
 
 ## Missing feature: Auto update for ViaVersion
-The container is currently being rewritten with the aim to provide auto-update functionality for plugins hosted on the Spigot website. Currently all previous functionality should be working **except for auto updating of ViaVersion**. If this is a feature that you need, stick with v2.0.1 for now and refer to [this version of the readme](https://github.com/drusin/minecraft-docker/blob/e5e1e6f8a933a2b3a6149d0d29fb57d71071d5d3/README.md).
 
+This feature was omitted during the rewrite from 2.0 to 3.0 and is currently **not being worked on**.  
+If this is a feature that you need, you can try using v2.0.1 and refering to [this version of the readme](https://github.com/drusin/minecraft-docker/blob/e5e1e6f8a933a2b3a6149d0d29fb57d71071d5d3/README.md).
 ## Environment
+### Main configuration variables
+The default values are **not considered stable**, changes to the default values are **not considered breaking**.
 | Name                | Default value                    | Description                                                                                                                                                    |
 | ------------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | TYPE                | paper                            | Which server jar to use. Currently supported: paper, fabric, spigot, forge, waterfall, custom (see [Using custom jars](#using-custom-jars))                    |
 | MC_VERSION          | 1.19                             | Which Minecraft version to use                                                                                                                                 |
 | EULA                | false                            | If you accept Mojang's EULA                                                                                                                                    |
 | JAVA_VERSION        | 17.0.4                           | Which Java version to use                                                                                                                                      |
-| JAVA_IDENTIFIER     | tem                              | Which Java vendor to use. tem for Temurin (formally HotSpot), sem for Semeru (formally OpenJ9)                                                                 |
+| JAVA_IDENTIFIER     | tem                              | Which Java vendor to use. tem for Temurin (formally HotSpot), sem for Semeru (formally OpenJ9) - See https://sdkman.io/jdks                                                                 |
 | MEMORY              | 4096                             | How much RAM to allocate for the server (in MB)                                                                                                                |
+### Additional configuration variables
+Default values can be considered quite stable.
+| Name                | Default value                    | Description                                                                                      
+| ------------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DEFAULT_ARGS        | true                             | Use recommended java startup flags. Depending on the container it uses them from https://mcflags.emc.gs or https://steinborn.me/posts/tuning-minecraft-openj9/ |
 | ADDITIONAL_ARGS     |                                  | Additional arguments if you don't want to overwrite the whole ARGS                                                                                             |
-| WORLDS              | world,world_nether,world_the_end | Which world directories to use (ignored when using waterfall)                                                                                                  |
 | FORCE_DOWNLOAD      | false                            | If set to "false", no server jar will be downloaded if there is already one present from a previous run                                                        |
 | JAR_NAME            | runme.jar                        | Name of the jar to run. Only might need changing for `TYPE: custom`, see [Using custom jars](#using-custom-jars)                                               |
-| PLUGINS_FOLDER_NAME | plugins                          | Name of the folder to use for plugins or mods. Only might need changing for `TYPE: custom`, see [Using custom jars](#using-custom-jars)                        |
 
 ### Choosing the correct java version
 Starting with Minecraft 1.17 newer Java versions are required than Java 8. But some server types don't support the newest Java version yet, so you might need to stick to some in-between Java version instead of just going for the latest or the last lts release. With both regular Minecraft and Java releases it is hard to give a general recommendation here, but you might use [this wiki page](https://minecraft.fandom.com/wiki/Tutorials/Update_Java#Why_update?) as a starting point.
@@ -57,6 +62,8 @@ Just run `./localTest.mjs`. It will mimic some of the behavior defined in the Do
 4. Create symbolic links to all scripts form `/scripts` in `test-workdir` and make script files executable
 5. Start the main script `script.mjs` from `test-workdir`
 If you did not change any environnement variables the end result should be a running, freshly downloaded version of papermc.
+
+You can use the `-c` flag to clean `test-data` and `test-workdir` before the rest of the script runs.
 
 #### Changing environment variables
 The file `testenv` changes the values of a few environment variables to make the scripts function locally. You should only touch this file if you know what you are doing and don't need to touch it if you just need to change some "regular" environment variables while testing/prototyping. Add your changed variables to `testenv.override` instead or comment in the already present but commented out lines.
