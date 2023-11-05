@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME="dawidr/minecraft-docker"
-PLATFORMS="linux/amd64,linux/arm64,linux/arm/v7"
+PLATFORMS="linux/amd64,linux/arm64"
 
 VERSION_FILE="version"
 read -r version<$VERSION_FILE

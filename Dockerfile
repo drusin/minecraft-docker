@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:20
 
 # API, use for configuration
 ENV JAVA_VERSION="17.0.4"
@@ -31,6 +31,7 @@ SHELL ["/bin/bash", "-c"]
 # Install dependencies for sdkman and sdkman itself
 RUN apt-get update -y && apt-get install zip unzip wget curl -y
 RUN curl -s "https://get.sdkman.io?rcupdate=false" | bash
+COPY sdkman.config /root/.sdkman/etc/config
 
 # Prepare folder structure
 VOLUME /data
