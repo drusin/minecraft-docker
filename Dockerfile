@@ -35,9 +35,8 @@ RUN apt-get update -y && apt-get install zip unzip wget curl -y
 RUN curl -s "https://get.sdkman.io?rcupdate=false" | bash
 
 # Prepare folder structure
-RUN mkdir /data
-WORKDIR /home/minecraft/
 VOLUME /data
+WORKDIR /home/minecraft/
 
 # Copy necessary files and make them executable
 COPY /scripts/* ./

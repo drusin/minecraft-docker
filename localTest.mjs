@@ -30,7 +30,8 @@ const setEnv = async (fileName) => {
     (await fs.readFile(fileName, 'utf8'))
         .split('\n')
         // find all lines starting with ENV (and then remove the "ENV ")
-        .filter(str => str.match('ENV .*?'))
+        .filter(str => str.match('^ENV .*?'))
+        // .map(line => {console.log(line);return line})    // fast debug in case env is funky
         .map(str => str.replace('ENV ', ''))
         // split on the first "=" only
         .map(str => str.split(/=(.*)/))
@@ -44,24 +45,24 @@ await setEnv('testenv');
 await setEnv('testenv.override');
 
 if (argv.c || argv.clean) {
-    await $`rm -frd $WORK_DIR`;
+    await $`rm -frd $WORK_DIR_NAME`;
     await $`rm -frd $DATA_DIR_NAME`;
 }
 
 await $`mkdir -p $DATA_DIR_NAME`;
-await $`mkdir -p $WORK_DIR`;
+await $`mkdir -p $WORK_DIR_NAME`;
 
 const scriptDirFullPath = path.resolve(`./scripts`);
 
 const scriptFiles = await fs.readdir('scripts');
 for (let file of scriptFiles) {
-    await $`ln -sf ${scriptDirFullPath}/${file} $WORK_DIR/${file}`;
+    await $`ln -sf ${scriptDirFullPath}/${file} $WORK_DIR_NAME/${file}`;
 }
 
-cd(process.env.WORK_DIR);
+cd(process.env.WORK_DIR_NAME);
 
-await $`sudo chmod +x *.mjs`;
-await $`sudo chmod +x *.sh`;
+await $`chmod +x *.mjs`;
+await $`chmod +x *.sh`;
 
 const fileName = process.argv.slice(2)
     // is there a script file (.mjs or .sh) in the args?

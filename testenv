@@ -3,7 +3,8 @@
 # necessary overrrides to make local debugging work
 ENV DATA_DIR_NAME="test-data"
 ENV DATA_DIR="../test-data"
-ENV WORK_DIR="test-workdir"
+ENV WORK_DIR_NAME="test-workdir"
+ENV WORK_DIR="../test-workdir"
 ENV JAVA_PATH="java"
 ENV START_COMMAND="-jar runme.jar nogui"
 

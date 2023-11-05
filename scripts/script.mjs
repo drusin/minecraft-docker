@@ -5,13 +5,16 @@
  */
 
 import { safe } from './helper.js';
-import { $, fs } from 'zx';
+import { $, cd, fs } from 'zx';
 import paper from './paper.js';
 import fabric from './fabric.js';
 import forge from './forge.js';
 import waterfall from './waterfall.js';
 
 const E = process.env;
+
+cd(E.DATA_DIR);
+fs.writeFileSync('eula.txt', `eula=${E.EULA}`);
 
 // install Java if necessary
 const installedJavaVersion = await safe(() => $`java --version`);
@@ -22,58 +25,20 @@ else {
     console.log('Matching Java version detected, skipping');
 }
 
-await fs.writeFile('eula.txt', `eula=${E.EULA}`);
+const prefs = fs.existsSync('.minecraft-docker') ? JSON.parse(fs.readFileSync('.minecraft-docker')) : {};
 
-// copy all flat data to workdir
-await safe(() =>  $`cp $DATA_DIR/* ./`);
-
-if (E.FORCE_DOWNLOAD == 'true' && E.TYPE != 'custom') {
-    console.log(`########### deleting ${E.JAR_NAME} ###############`)
+if (E.TYPE != 'custom' && (!fs.existsSync(E.JAR_NAME) || E.FORCE_DOWNLOAD == 'true' || prefs.mcVersion != E.MC_VERSION || prefs.type != E.TYPE)) {
+    console.log(`########### deleting ${E.JAR_NAME} ###############`);
     await safe(() => $`rm $JAR_NAME`);
+    await getJar();
+}
+else {
+    console.log(`########### reusing existing ${E.JAR_NAME} ###########`);
 }
 
-// download server jar and do specific setup
-switch (E.TYPE) {
-    case 'custom':
-        await $`./custom.sh`;
-        break;
-    case 'fabric':
-        await fabric(E);
-        break;
-    case 'forge':
-        await forge(E);
-        break;
-    case 'paper':
-        await paper(E);
-        break;
-    case 'spigot':
-        await $`./spigot.sh`
-        break;
-    case 'waterfall':
-        await waterfall(E);
-        break;
-    default:
-        // no supported Minecraft server type detected
-        console.error(`Unsupported server type ${E.TYPE} - aborting!`);
-        await $`exit 1`;
-}
-
-// bind large directories to avoid copying huge files
-await $`mkdir $DATA_DIR/logs -p`;
-await $`ln -sfn $DATA_DIR/logs logs`;
-
-// bind world directories
-const worlds = E.WORLDS.split(',');
-for (let world of worlds) {
-    await $`mkdir $DATA_DIR/${world} -p`;
-    await $`ln -sfn $DATA_DIR/${world} ${world}`;
-}
-
-// bind plugins folder
-await $`mkdir $DATA_DIR/$PLUGINS_FOLDER_NAME -p`;
-await $`ln -sfn $DATA_DIR/$PLUGINS_FOLDER_NAME $PLUGINS_FOLDER_NAME`;
-
-// skipping autoupdating viaversion
+prefs.mcVersion = E.MC_VERSION;
+prefs.type = E.TYPE;
+fs.writeFileSync('.minecraft-docker', JSON.stringify(prefs, null, '  '));
 
 let defaultArgs = '';
 // choose correct default args
@@ -101,25 +66,40 @@ if (E.DEFAULT_ARGS == "true") {
 const finalArgs = `${defaultArgs} ${E.ADDITIONAL_ARGS} ${E.START_COMMAND}`;
 console.log('########### Using the following java startup args ###############');
 console.log(finalArgs);
-await $`./run-java.sh ${finalArgs}`;
+await $`$WORK_DIR/run-java.sh ${finalArgs}`;
 
-
-// ########################################################
-// ########### After the server has stopped ###############
-// ########################################################
-
-console.log('########### Server has stopped, cleaning up ###############');
-
-switch(E.TYPE) {
-    case 'fabric':
-    case 'forge':
-        await $`./fabric-cleanup.mjs`;
-        break;
-}
-
-// copy all settings data that were touched back before container shutdown
-await safe(() => $`cp *.properties $DATA_DIR -u`);
-await safe(() => $`cp *.json $DATA_DIR -u`);
-await safe(() => $`cp *.yml $DATA_DIR -u`);
+// ############### Server has stopped #####################
 
 console.log('########### Bye! ###############');
+
+
+async function getJar() {
+    cd(E.WORK_DIR);
+    // download server jar and do specific setup
+    switch (E.TYPE) {
+        case 'custom':
+            await $`./custom.sh`;
+            break;
+        case 'fabric':
+            await fabric(E);
+            break;
+        case 'forge':
+            await forge(E);
+            break;
+        case 'paper':
+            await paper(E);
+            break;
+        case 'spigot':
+            await $`./spigot.sh`
+            break;
+        case 'waterfall':
+            await waterfall(E);
+            break;
+        default:
+            // no supported Minecraft server type detected
+            console.error(`Unsupported server type ${E.TYPE} - aborting!`);
+            await $`exit 1`;
+    }
+    await $`cp $JAR_NAME $DATA_DIR`
+    cd(E.DATA_DIR);
+}
