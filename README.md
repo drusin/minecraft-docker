@@ -13,8 +13,8 @@ If this is a feature that you need, you can try using v2.0.1 and refering to [th
 The default values are **not considered stable**, changes to the default values are **not considered breaking**.
 | Name                | Default value                    | Description                                                                                                                                                    |
 | ------------------- | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TYPE                | paper                            | Which server jar to use. Currently supported: paper, fabric, spigot, forge, waterfall, custom (see [Using custom jars](#using-custom-jars))                    |
-| MC_VERSION          | 1.19                             | Which Minecraft version to use                                                                                                                                 |
+| TYPE                | paper                            | Which server jar to use. Currently supported: paper, fabric, spigot, forge, velocity, waterfall, custom (see [Using custom jars](#using-custom-jars))                    |
+| MC_VERSION          | 1.19                             | Which Minecraft version to use (ignored for Velocity)                                                                                                                                 |
 | EULA                | false                            | If you accept Mojang's EULA                                                                                                                                    |
 | JAVA_VERSION        | 17.0.4                           | Which Java version to use                                                                                                                                      |
 | JAVA_IDENTIFIER     | tem                              | Which Java vendor to use. tem for Temurin (formally HotSpot), sem for Semeru (formally OpenJ9) - See https://sdkman.io/jdks                                                                 |
@@ -37,6 +37,9 @@ It is possible to run server types that are not supported out of the box by usin
 If you want to use plugins or mods, make sure `PLUGINS_FOLDER_NAME` is correct.
 
 Variables `VERSION` and `FORCE_DOWNLOAD` don't have any effect when using `TYPE: custom`.
+
+### Velocity
+Velocity is compatible with Minecraft 1.7.7 - current (1.20.2 at time of writing). Currently, when using `TYPE: velocity`, always the latest non-SNAPSHOT version of Velocity is downloaded and used, the set Minecraft version is ignored.
 
 ## Example docker-compose
 You can find an extensive docker-compose example file [here](https://github.com/drusin/minecraft-docker/blob/main/docker-compose.yml).
