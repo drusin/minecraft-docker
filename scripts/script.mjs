@@ -9,6 +9,7 @@ import { $, cd, fs } from 'zx';
 import paper from './paper.js';
 import fabric from './fabric.js';
 import forge from './forge.js';
+import velocity from './velocity.js';
 import waterfall from './waterfall.js';
 
 const E = process.env;
@@ -91,6 +92,9 @@ async function getJar() {
             break;
         case 'spigot':
             await $`./spigot.sh`
+            break;
+        case 'velocity':
+            await velocity();
             break;
         case 'waterfall':
             await waterfall(E);

@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:20-slim
 
 # API, use for configuration
 ENV JAVA_VERSION="17.0.4"
