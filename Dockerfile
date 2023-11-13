@@ -19,19 +19,24 @@ ENV TEM_ARGS="-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 
 ENV SEM_ARGS="-XmnsXMNSM -XmnxXMNXM -Xgc:concurrentScavenge -Xgc:dnssExpectedTimeRatioMaximum=3 -Xgc:scvNoAdaptiveTenure -Xdisableexplicitgc -Xtune:virtualized"
 ENV START_COMMAND="-jar $JAR_NAME nogui"
 
+ENV SDKMAN_DIR="/sdkman"
+
 # Necessary for local testing only, shouldn't need touching
 ENV DATA_DIR_NAME="data"
 ENV DATA_DIR="/${DATA_DIR_NAME}/"
 ENV WORK_DIR="/home/minecraft/"
-ENV JAVA_PATH="/root/.sdkman/candidates/java/current/bin/java"
+ENV JAVA_PATH="${SDKMAN_DIR}/candidates/java/current/bin/java"
 ENV SKIP_JAVA="false"
+
 
 SHELL ["/bin/bash", "-c"]
 
 # Install dependencies for sdkman and sdkman itself
+USER 0
 RUN apt-get update -y && apt-get install zip unzip wget curl -y
 RUN curl -s "https://get.sdkman.io?rcupdate=false" | bash
-COPY sdkman.config /root/.sdkman/etc/config
+COPY sdkman.config ${SDKMAN_DIR}/etc/config
+RUN chmod -R a=rwx ${SDKMAN_DIR}
 
 # Prepare folder structure
 VOLUME /data
@@ -40,8 +45,7 @@ WORKDIR /home/minecraft/
 # Copy necessary files and make them executable
 COPY /scripts/* ./
 COPY /*.json ./
-RUN chmod +x *.sh
-RUN chmod +x *.mjs
+RUN chmod a=rwx /home/minecraft
 RUN npm ci
 
 EXPOSE 25565

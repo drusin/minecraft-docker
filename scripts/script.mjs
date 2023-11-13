@@ -70,7 +70,6 @@ console.log(finalArgs);
 await $`$WORK_DIR/run-java.sh ${finalArgs}`;
 
 // ############### Server has stopped #####################
-
 console.log('########### Bye! ###############');
 
 

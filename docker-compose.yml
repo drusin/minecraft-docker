@@ -1,10 +1,10 @@
 version: "3"
 services:
   test:
-    image: dawidr/minecraft-docker:4.0.0
+    image: dawidr/minecraft-docker:4.2.0
     container_name: test_minecraft-docker
     ports:
-      - "25565:25565"
+      - "22222:25565"
     environment:
       - JAVA_VERSION=17.0.4
       - JAVA_IDENTIFIER=tem
@@ -20,3 +20,4 @@ services:
     tty: true
     volumes:
       - ./test-minecraft-volume:/data:rw
+    user: 1000:1000

@@ -1,5 +1,5 @@
 #!/bin/bash
-source "$HOME/.sdkman/bin/sdkman-init.sh"
+source "${SDKMAN_DIR}/bin/sdkman-init.sh"
 echo "########### installing $JAVA_VERSION-$JAVA_IDENTIFIER ###############"
 sdk update
 sdk i java $JAVA_VERSION-$JAVA_IDENTIFIER
