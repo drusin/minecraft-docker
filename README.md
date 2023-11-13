@@ -4,6 +4,12 @@ A simple docker container that automatically installs java and downloads and sta
 ## Usage
 Forward the port 25565 and mount a read/write volume to `/data`, to persist worlds and server settings. If the volume already contains worlds, config files or plugins/mods the server will use those and they will be updated during runtime. It is not possible to change server config using environment variables, please use the regular server config files in the volume.
 
+### Runnin as non-root user
+This container supports being run as a non-root user, just pass your user id when starting (see example [docker-compose.yml](https://github.com/drusin/minecraft-docker/blob/main/docker-compose.yml)).
+
+### Persisting java installations
+The container automatically installs the set Java version on the fly. You can persist the installed java version between config changes (e.g. changing the Minecraft version or the memory amount) by binding a read/write volume to `/sdkman/candidates`. You can theoretically reuse the same volume for multiple containers.
+
 ## Missing feature: Auto update for ViaVersion
 
 This feature was omitted during the rewrite from 2.0 to 3.0 and is currently **not being worked on**.  

@@ -20,4 +20,5 @@ services:
     tty: true
     volumes:
       - ./test-minecraft-volume:/data:rw
+      - ./test-minecraft-volume/sdkman:/sdkman/candidates:rw
     user: 1000:1000
