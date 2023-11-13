@@ -6,9 +6,11 @@
 
 import { safe } from './helper.js';
 import { $, cd, fs } from 'zx';
-import paper from './paper.js';
+
 import fabric from './fabric.js';
 import forge from './forge.js';
+import paper from './paper.js';
+import spigot from './spigot.js';
 import velocity from './velocity.js';
 import waterfall from './waterfall.js';
 
@@ -90,7 +92,7 @@ async function getJar() {
             await paper(E);
             break;
         case 'spigot':
-            await $`./spigot.sh`
+            await spigot(E);
             break;
         case 'velocity':
             await velocity();

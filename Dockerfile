@@ -19,6 +19,7 @@ ENV TEM_ARGS="-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 
 ENV SEM_ARGS="-XmnsXMNSM -XmnxXMNXM -Xgc:concurrentScavenge -Xgc:dnssExpectedTimeRatioMaximum=3 -Xgc:scvNoAdaptiveTenure -Xdisableexplicitgc -Xtune:virtualized"
 ENV START_COMMAND="-jar $JAR_NAME nogui"
 
+# Don't touch
 ENV SDKMAN_DIR="/sdkman"
 
 # Necessary for local testing only, shouldn't need touching
@@ -33,7 +34,7 @@ SHELL ["/bin/bash", "-c"]
 
 # Install dependencies for sdkman and sdkman itself
 USER 0
-RUN apt-get update -y && apt-get install zip unzip wget curl -y
+RUN apt-get update -y && apt-get install zip unzip wget curl git -y
 RUN curl -s "https://get.sdkman.io?rcupdate=false" | bash
 COPY sdkman.config ${SDKMAN_DIR}/etc/config
 RUN chmod -R a=rwx ${SDKMAN_DIR}
