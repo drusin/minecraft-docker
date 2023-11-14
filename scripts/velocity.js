@@ -6,13 +6,12 @@ export default async function() {
     // find the newest build for the requested Minecraft version
     const versionsResponse = await fetch(`https://papermc.io/api/v2/projects/velocity`);
     const { versions } = await versionsResponse.json();
-    const lastStable = versions
-            .filter(version => !version.includes('SNAPSHOT'))
+    const lastVersion = versions
             .sort()
             .pop();
-    const buildsResponse = await fetch(`https://papermc.io/api/v2/projects/velocity/versions/${lastStable}/builds`);
+    const buildsResponse = await fetch(`https://papermc.io/api/v2/projects/velocity/versions/${lastVersion}/builds`);
     const { builds } = await buildsResponse.json();
     const build = builds.pop().build;
-    const url = `https://papermc.io/api/v2/projects/velocity/versions/${lastStable}/builds/${build}/downloads/velocity-${lastStable}-${build}.jar`;
+    const url = `https://papermc.io/api/v2/projects/velocity/versions/${lastVersion}/builds/${build}/downloads/velocity-${lastVersion}-${build}.jar`;
     await $`wget ${url} -O $JAR_NAME`;
 };
