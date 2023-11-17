@@ -19,13 +19,8 @@ const E = process.env;
 cd(E.DATA_DIR);
 fs.writeFileSync('eula.txt', `eula=${E.EULA}`);
 
-// install Java if necessary
-const installedJavaVersion = await safe(() => $`java --version`);
-if (E.SKIP_JAVA == 'false' && (!installedJavaVersion || !installedJavaVersion.stdout.match(E.JAVA_VERSION))) {
+if (E.SKIP_JAVA == 'false') {
     await $`$WORK_DIR/install-java.sh`;
-}
-else {
-    console.log('Matching Java version detected, skipping');
 }
 
 const prefs = fs.existsSync('.minecraft-docker') ? JSON.parse(fs.readFileSync('.minecraft-docker')) : {};
