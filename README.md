@@ -40,12 +40,10 @@ Also please keep in mind that Semeru Java releases might not be available for al
 
 ### Using custom jars
 It is possible to run server types that are not supported out of the box by using `TYPE: custom`. Then you just have to provide a jar-file that matches `JAR_NAME` in the root of the bound volume.
-If you want to use plugins or mods, make sure `PLUGINS_FOLDER_NAME` is correct.
-
 Variables `VERSION` and `FORCE_DOWNLOAD` don't have any effect when using `TYPE: custom`.
 
 ### Velocity
-Velocity is compatible with Minecraft 1.7.7 - current (1.20.2 at time of writing). Currently, when using `TYPE: velocity`, always the latest non-SNAPSHOT version of Velocity is downloaded and used, the set Minecraft version is ignored.
+Velocity is compatible with Minecraft 1.7.7 - current (1.20.2 at time of writing). Currently, when using `TYPE: velocity`, always the latest version of Velocity is downloaded and used, the set Minecraft version is ignored.
 
 ## Example docker-compose
 You can find an extensive docker-compose example file [here](https://github.com/drusin/minecraft-docker/blob/main/docker-compose.yml).
