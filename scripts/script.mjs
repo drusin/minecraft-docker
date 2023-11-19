@@ -45,7 +45,7 @@ if (E.DEFAULT_ARGS == "true") {
         console.log('########### Using default args for Semeru ###############');
         defaultArgs = E.SEM_ARGS;
         // calculate gencon nursery
-        defaultArgs = defaultArgs.replace('XMNS', E.MEMORY / 2).replace('XMNX', E.MEMORY * 4 / 5);
+        defaultArgs = defaultArgs.replace('XMNS', Math.trunc(E.MEMORY / 2)).replace('XMNX', Math.trunc(E.MEMORY * 4 / 5));
     }
     else {
         console.log('########### Using default args for Temurin ###############');
