@@ -44,9 +44,9 @@ else
 fi
 
 if [ ${push} == "true" ]; then
-    git tag v$newVersion
-    git push origin v$newVersion
     git add .
     git commit -m "increasing version number"
     git push
+    git tag v$newVersion
+    git push origin v$newVersion
 fi
