@@ -61,12 +61,12 @@ for (let file of scriptFiles) {
 
 cd(process.env.WORK_DIR_NAME);
 
-await $`chmod +x *.mjs`;
+await $`chmod +x *.js`;
 await $`chmod +x *.sh`;
 
 const fileName = process.argv.slice(2)
     // is there a script file (.mjs or .sh) in the args?
-    .find(arg => arg.match(/.*?\.(mjs|sh)/))
-    || 'script.mjs'
+    .find(arg => arg.match(/.*?\.(js|sh)/))
+    || 'script.js'
 
 $`./${fileName}`;
