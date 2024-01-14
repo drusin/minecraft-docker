@@ -1,0 +1,14 @@
+{
+  "active_profile": 0,
+  "active_modpack": 0,
+  "profiles": [
+    {
+      "name": "minecraft-docker",
+      "output_dir": "$DATA_DIR/mods",
+      "game_version": "1.20.4",
+      "mod_loader": "Fabric",
+      "mods": []
+    }
+  ],
+  "modpacks": []
+}
