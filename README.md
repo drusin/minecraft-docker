@@ -4,16 +4,12 @@ A simple docker container that automatically installs java and downloads and sta
 ## Usage
 Forward the port 25565 and mount a read/write volume to `/data`, to persist worlds and server settings. If the volume already contains worlds, config files or plugins/mods the server will use those and they will be updated during runtime. It is not possible to change server config using environment variables, please use the regular server config files in the volume.
 
-### Runnin as non-root user
+### Running as non-root user
 This container supports being run as a non-root user, just pass your user id when starting (see example [docker-compose.yml](https://github.com/drusin/minecraft-docker/blob/main/docker-compose.yml)).
 
-### Persisting java installations
+### Persisting Java installations
 The container automatically installs the set Java version on the fly. You can persist the installed java version between config changes (e.g. changing the Minecraft version or the memory amount) by binding a read/write volume to `/sdkman/candidates`. You can theoretically reuse the same volume for multiple containers.
 
-## Missing feature: Auto update for ViaVersion
-
-This feature was omitted during the rewrite from 2.0 to 3.0 and is currently **not being worked on**.  
-If this is a feature that you need, you can try using v2.0.1 and refering to [this version of the readme](https://github.com/drusin/minecraft-docker/blob/e5e1e6f8a933a2b3a6149d0d29fb57d71071d5d3/README.md).
 ## Environment
 ### Main configuration variables
 The default values are **not considered stable**, changes to the default values are **not considered breaking**.
@@ -25,6 +21,8 @@ The default values are **not considered stable**, changes to the default values 
 | JAVA_VERSION        | 17.0.4                           | Which Java version to use                                                                                                                                      |
 | JAVA_IDENTIFIER     | tem                              | Which Java vendor to use. tem for Temurin (formally HotSpot), sem for Semeru (formally OpenJ9) - See https://sdkman.io/jdks                                                                 |
 | MEMORY              | 4096                             | How much RAM to allocate for the server (in MB)                                                                                                                |
+| DOWNLOAD_MODS       | false                            | Set to `true` to enable mod auto download functionality, see [Auto download mods](#auto-download-mods) |
+| MODS                | ""                               | Which mods to download, when `DOWNLOAD_MODS` is enabled, no functionality otherwise |  
 ### Additional configuration variables
 Default values can be considered quite stable.
 | Name                | Default value                    | Description                                                                                      
@@ -45,6 +43,14 @@ Variables `VERSION` and `FORCE_DOWNLOAD` don't have any effect when using `TYPE:
 ### Velocity
 Velocity is compatible with Minecraft 1.7.7 - current (1.20.2 at time of writing). Currently, when using `TYPE: velocity`, always the latest version of Velocity is downloaded and used, the set Minecraft version is ignored.
 
+### Auto download mods
+This container has the built in functionaility to automatically download specified mods. It currently is only supported for server types `forge` and `fabric`. To use it, set `DOWNLOAD_MODS` to `true` and put a comma-separated list of mod ids in `MODS`. A mod id can be one of:
+* Modrinth slug
+* Modrinth project ID
+* Curseforge project ID
+
+Under the hood the container uses the awesome CLI tool [Ferium](https://github.com/gorilla-devs/ferium).
+
 ## Example docker-compose
 You can find an extensive docker-compose example file [here](https://github.com/drusin/minecraft-docker/blob/main/docker-compose.yml).
 
@@ -62,12 +68,12 @@ To make debugging and prototyping easier and faster, this project comes with a w
 * Run `npm ci` in the project folder once after cloning to download and install zx for the project locally
 
 #### Starting the local scripts
-Just run `./localTest.mjs`. It will mimic some of the behavior defined in the Dockerfile:
+Just run `./localTest.js`. It will mimic some of the behavior defined in the Dockerfile:
 1. Read and set all environment variables defined in `Dockerfile`, `testenv` and `testenv.override`
 2. Create the folder `test-data` which mimics the bound read/write volume
 3. Create the folder `test-workdir` which mimics the working directory in the container
 4. Create symbolic links to all scripts form `/scripts` in `test-workdir` and make script files executable
-5. Start the main script `script.mjs` from `test-workdir`
+5. Start the main script `script.js` from `test-workdir`
 If you did not change any environnement variables the end result should be a running, freshly downloaded version of papermc.
 
 You can use the `-c` flag to clean `test-data` and `test-workdir` before the rest of the script runs.
