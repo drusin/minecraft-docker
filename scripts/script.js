@@ -14,6 +14,8 @@ import spigot from './spigot.js';
 import velocity from './velocity.js';
 import waterfall from './waterfall.js';
 
+import { feriumInstalled, downloadMods } from './ferium.js';
+
 const E = process.env;
 
 cd(E.DATA_DIR);
@@ -37,6 +39,13 @@ else {
 prefs.mcVersion = E.MC_VERSION;
 prefs.type = E.TYPE;
 fs.writeFileSync('.minecraft-docker', JSON.stringify(prefs, null, '  '));
+
+if (E.DOWNLOAD_MODS == 'true') {
+    if (!feriumInstalled(E)) {
+        await $`$WORK_DIR/download-ferium.js`;
+    }
+    await downloadMods(E);
+}
 
 let defaultArgs = '';
 // choose correct default args

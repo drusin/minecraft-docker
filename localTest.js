@@ -59,14 +59,17 @@ for (let file of scriptFiles) {
     await $`ln -sf ${scriptDirFullPath}/${file} $WORK_DIR_NAME/${file}`;
 }
 
+await $`cp ferium-config.json $WORK_DIR_NAME/`;
+
 cd(process.env.WORK_DIR_NAME);
 
 await $`chmod +x *.js`;
+// await $`chmod +x *.mjs`;
 await $`chmod +x *.sh`;
 
 const fileName = process.argv.slice(2)
     // is there a script file (.mjs or .sh) in the args?
-    .find(arg => arg.match(/.*?\.(js|sh)/))
+    .find(arg => arg.match(/.*?\.(js|mjs|sh)/))
     || 'script.js'
 
 $`./${fileName}`;

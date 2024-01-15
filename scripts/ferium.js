@@ -1,30 +1,33 @@
 #!/usr/bin/env node
 
-import { $, fs, cd } from 'zx';
+import { $, fs, path } from 'zx';
 
-const mapping = [['forge', 'Forge'], ['fabric', 'Fabric']];
-const configFile = 'ferium-config.json';
-const ferium = (E = process.env) => `./ferium -c ${configFile}`;
+const MAPPING = [['forge', 'Forge'], ['fabric', 'Fabric']];
+const CONFIG_FILE_NAME = 'ferium-config.json';
 
-export default async function download(E = process.env) {
-    const mapped = mapping.find(el => el[0] === E.TYPE);
+export async function downloadMods(E = process.env) {
+    const configFile = path.resolve(`${E.WORK_DIR}/${CONFIG_FILE_NAME}`);
+    const ferium = (...args) => [`${E.WORK_DIR}/ferium`, '-c' , configFile, ...args];
+
+    const mapped = MAPPING.find(el => el[0] === E.TYPE);
     if (!mapped) {
         console.error(`Downloading mods not supported for server type ${E.TYPE}`);
         return;
     }
 
-    const prevPath = E.PWD;
-
-    cd(E.WORK_DIR);
     const config = fs.readJsonSync(configFile);
     config.profiles[0].game_version = E.MC_VERSION;
+    config.profiles[0].output_dir = path.resolve(`${E.DATA_DIR}/mods`);
     config.profiles[0].mod_loader = mapped[1];
+    config.profiles[0].mods = [];
     fs.writeJSONSync(configFile, config);
     const mods = E.MODS.split(',');
-    mods.forEach(async mod => await $`${ferium()} add ${mod}`);
-    await $`${ferium()} upgrade`;
-    
-    cd(prevPath);
+    for (const mod of mods) {
+        await $`${ferium('add', mod)}`;
+    }
+    await $`${ferium('upgrade')}`;
 }
 
-await download();
+export function feriumInstalled(E = process.env) {
+    return fs.existsSync(`${E.WORK_DIR}/ferium`);
+}

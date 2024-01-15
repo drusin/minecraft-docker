@@ -10,6 +10,8 @@ ENV EULA="false"
 ENV DEFAULT_ARGS="true"
 ENV ADDITIONAL_ARGS=""
 ENV FORCE_DOWNLOAD="false"
+ENV DOWNLOAD_MODS="false"
+ENV MODS=""
 
 # Only might need touching for custom jars
 ENV JAR_NAME="runme.jar"
@@ -46,9 +48,9 @@ WORKDIR /home/minecraft/
 # Copy necessary files and make them executable
 COPY /scripts/* ./
 COPY /*.json ./
-RUN chmod a=rwx /home/minecraft
+RUN chmod -R a=rwx /home/minecraft
 RUN npm ci
 
 EXPOSE 25565
 
-ENTRYPOINT "./script.mjs"
+ENTRYPOINT "./script.js"

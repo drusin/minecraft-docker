@@ -5,11 +5,13 @@ services:
     # environment:
       # - JAVA_VERSION=17.0.4
       # - JAVA_IDENTIFIER=tem
-      # - TYPE=paper
-      # - MC_VERSION=1.19
-      # - MEMORY=4096
+      # - TYPE=fabric
+      # - MC_VERSION=1.20.4
+      # - MEMORY=2048
       # - EULA=false
       # - DEFAULT_ARGS=true
       # - ADDITIONAL_ARGS=
       # - FORCE_DOWNLOAD=false
       # - JAR_NAME=runme.jar
+      # - DOWNLOAD_MODS=true
+      # - MODS=lithium,fabric-api

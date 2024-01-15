@@ -16,6 +16,8 @@ services:
       - ADDITIONAL_ARGS=
       - FORCE_DOWNLOAD=false
       - JAR_NAME=runme.jar
+      - DOWNLOAD_MODS=false
+      - MODS=
     stdin_open: true
     tty: true
     volumes:

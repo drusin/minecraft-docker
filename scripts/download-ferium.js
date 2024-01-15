@@ -13,5 +13,5 @@ const releases = await response.json();
 response = await fetch(releases[0].assets_url);
 const assets = await response.json()
 const toDownload = assets.find(el => el.name === assetName);
-await $`wget ${toDownload.browser_download_url} -O $WORK_DIR/ferium-arch.zip`;
-await $`unzip $WORK_DIR/ferium-arch.zip -d $WORK_DIR`;
+await $`wget ${toDownload.browser_download_url} -O $WORK_DIR/ferium.zip`;
+await $`unzip -o $WORK_DIR/ferium.zip -d $WORK_DIR`;

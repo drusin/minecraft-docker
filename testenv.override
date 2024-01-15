@@ -2,9 +2,12 @@
 
 # ENV JAVA_VERSION="17.0.4"
 # ENV JAVA_IDENTIFIER="tem"
-# ENV TYPE="waterfall"
-# ENV MC_VERSION="1.19"
+# ENV TYPE="fabric"
+# ENV MC_VERSION="1.20.4"
 # ENV MEMORY="4096"
 # ENV DEFAULT_ARGS="true"
 # ENV ADDITIONAL_ARGS=""
 # ENV FORCE_DOWNLOAD="false"
+
+# ENV DOWNLOAD_MODS="true"
+# ENV MODS="lithium,fabric-api"
