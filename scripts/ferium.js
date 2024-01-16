@@ -23,7 +23,7 @@ export async function downloadMods(E = process.env) {
     fs.writeJSONSync(configFile, config);
     const mods = E.MODS.split(',');
     for (const mod of mods) {
-        await $`${ferium('add', mod)}`;
+        await $`${ferium('add', mod, '--dependencies', 'required')}`;
     }
     await $`${ferium('upgrade')}`;
 }
